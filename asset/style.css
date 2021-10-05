@@ -1,23 +1,25 @@
 #tabelaJogo {
     
-    border: 2px solid;
-    height: 210px;
-    width: 245px;
-    display: flex;
-    flex-wrap: wrap;
+  border: 2px solid;
+  height: 210px;
+  width: 245px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .coluna {
-    width: 35px;
-    background-color: midnightblue;
+  width: 35px;
+  background-color: midnightblue;
 }
+
 
 /*RÔMULO*/
 .disco {
-  border-radius: 50%;
-  height: 30px;
-  width: 30px;
+border-radius: 50%;
+height: 30px;
+width: 30px;
 }
+
 
 /*  <allan>  */
 body {
@@ -28,7 +30,6 @@ body {
   align-items: center;
   box-sizing: border-box;
 }
-
 #blocoVezdoJogador {
   box-sizing: border-box;
   display: flex;
