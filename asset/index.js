@@ -1,11 +1,20 @@
 //FOSTER
-
+const tabelaArray = [
+    [0,0,0,0,0,0], 
+    [0,0,0,0,0,0],
+    [0,0,0,0,0,0],
+    [0,0,0,0,0,0],
+    [0,0,0,0,0,0],
+    [0,0,0,0,0,0],
+    [0,0,0,0,0,0]
+]
 
 for (let i = 0; i <= 6; i ++){
     let tabela = document.getElementById('tabelaJogo')
     let addDiv = document.createElement('div')
     tabela.appendChild(addDiv);
-    addDiv.classList.add('coluna')
+    addDiv.className='coluna'
+    addDiv.setAttribute("id", i)
 }
 
 let colunas = document.querySelectorAll('.coluna')
@@ -25,6 +34,13 @@ function addDisco( coluna, linha) {
     novoDisco.classList.add('disco')
     novoDisco.classList.add(coluna + "x" + linha)
     linhaAtual.appendChild(novoDisco)
+    
+    //FOSTER
+    if (vezDoVermelho === true){
+        tabelaArray[this.id][tabelaArray.lenght -1 -this.childElementCount] = 'Red'
+    } else {
+        tabelaArray[this.id][tabelaArray.lenght -1 -this.childElementCount] = 'Black'
+      }
 }
 
 //Função para limitar quantidade de elementos em cada coluna
