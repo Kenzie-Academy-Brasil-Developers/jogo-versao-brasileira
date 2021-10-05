@@ -27,6 +27,20 @@ function addDisco( coluna, linha) {
     linhaAtual.appendChild(novoDisco)
 }
 
+//Função para limitar quantidade de elementos em cada coluna
+function colunaCheia(number) {
+    let count = 0
+    for (let i = 0; i < tabelaArray[number].length; i++) {
+        if (tabelaArray[number][i] === 1 || tabelaArray[number][i] === 2) {
+            count++
+        }
+    }
+    if (count === 6) {
+        return alertErro("A coluna nao pode receber mais discos")
+    }
+}
+
+
 // ALLAN
 
 // Alterna jogador
@@ -63,4 +77,3 @@ function alternaJogador(bolinhaCriada) { // a cada jogada será chamada essa fun
 
     return vezDoVermelho // retorno da vez do jogador
 }
-
