@@ -2,19 +2,20 @@
 
 
 for (let i = 0; i <= 6; i ++){
-let tabela = document.getElementById('tabelaJogo')
-let addDiv = document.createElement('div')
-tabela.appendChild(addDiv);
-addDiv.classList.add('coluna')
+    let tabela = document.getElementById('tabelaJogo')
+    let addDiv = document.createElement('div')
+    tabela.appendChild(addDiv);
+    addDiv.classList.add('coluna')
 }
 
-let colunas = document.querySelectorAll('coluna')
+let colunas = document.querySelectorAll('.coluna')
 
 colunas.forEach(coluna => {
     coluna.addEventListener("click", addDisco)
 });
 
-// RÔMULO
+
+//ROMULO
 
 //Função de criação de novo disco
 let novoDisco;
@@ -35,8 +36,9 @@ const body = document.getElementsByTagName('BODY')[0]
 const blocoVezdoJogador = document.createElement('div')
 blocoVezdoJogador.id = 'blocoVezdoJogador'
 blocoVezdoJogador.classList.add('blocoVezdoJogadorVermelho')
-blocoVezdoJogador.innerText = 'Vez do jogador vermelho'
+blocoVezdoJogador.innerText = 'Vez do jogador vermelhor'
 body.appendChild(blocoVezdoJogador)
+
 
 
 let vezDoVermelho = true // variavel que dirá se é a vez do jogador vermelho
@@ -62,4 +64,3 @@ function alternaJogador(bolinhaCriada) { // a cada jogada será chamada essa fun
     return vezDoVermelho // retorno da vez do jogador
 }
 
-//DANIEL
