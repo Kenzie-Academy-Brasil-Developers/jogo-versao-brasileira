@@ -1,44 +1,6 @@
 //FOSTER
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//ROMULO
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//FOSTER
-
-
 for (let i = 0; i <= 6; i ++){
     let tabela = document.getElementById('tabelaJogo')
     let addDiv = document.createElement('div')
@@ -52,45 +14,18 @@ colunas.forEach(coluna => {
     coluna.addEventListener("click", addDisco)
 });
 
-function addDisco(){
-    console.log("bla")
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //ROMULO
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//Função de criação de novo disco
+let novoDisco;
+function addDisco( coluna, linha) {
+    let linhaAtual = document.getElementById(id)
+    novoDisco = document.createElement('div')
+    novoDisco.classList.add('disco')
+    novoDisco.classList.add(coluna + "x" + linha)
+    linhaAtual.appendChild(novoDisco)
+}
 
 // ALLAN
 
@@ -103,6 +38,7 @@ blocoVezdoJogador.id = 'blocoVezdoJogador'
 blocoVezdoJogador.classList.add('blocoVezdoJogadorVermelho')
 blocoVezdoJogador.innerText = 'Vez do jogador vermelhor'
 body.appendChild(blocoVezdoJogador)
+
 
 
 let vezDoVermelho = true // variavel que dirá se é a vez do jogador vermelho

@@ -12,6 +12,15 @@
     background-color: midnightblue;
 }
 
+
+/*RÔMULO*/
+.disco {
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+}
+
+
 /*  <allan>  */
 body {
     width: 100vw;
