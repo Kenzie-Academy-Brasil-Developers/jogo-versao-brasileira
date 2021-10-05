@@ -28,11 +28,11 @@ colunas.forEach(coluna => {
 
 //Função de criação de novo disco
 let novoDisco;
-function addDisco( coluna, linha) {
-    let linhaAtual = document.getElementById(id)
+function addDisco(event) {
+    console.log(event)
+    let linhaAtual = document.getElementById(event.target.id)
     novoDisco = document.createElement('div')
     novoDisco.classList.add('disco')
-    novoDisco.classList.add(coluna + "x" + linha)
     linhaAtual.appendChild(novoDisco)
     
     //FOSTER
@@ -42,6 +42,7 @@ function addDisco( coluna, linha) {
         tabelaArray[this.id][tabelaArray.lenght -1 -this.childElementCount] = 'Black'
       }
 }
+
 
 //Função para limitar quantidade de elementos em cada coluna
 function colunaCheia(number) {
@@ -74,7 +75,7 @@ body.appendChild(blocoVezdoJogador)
 let vezDoVermelho = true // variavel que dirá se é a vez do jogador vermelho
 
 
-function alternaJogador(bolinhaCriada) { // a cada jogada será chamada essa função que intercalará a vez do jogador
+function alternaJogador(bolinhaCriadano) { // a cada jogada será chamada essa função que intercalará a vez do jogador
     if (vezDoVermelho === false) {
         vezDoVermelho = true
         blocoVezdoJogador.classList.remove('blocoVezdoJogadorPreto')
