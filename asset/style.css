@@ -1,0 +1,40 @@
+/*  <allan>  */
+body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+}
+#blocoVezdoJogador {
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    max-width: 1200px;
+    width: 70%;
+    height: 80px;
+    color: white;
+    font-size: 22px;
+    font-weight: 700;
+    font-family: Arial, Helvetica, sans-serif;
+    border-radius: 5px;
+    border: 2px dashed white;
+    margin: 10px 0;
+}
+.blocoVezdoJogadorVermelho {
+    background-color: rgb(184, 54, 54);
+}
+.blocoVezdoJogadorPreto {
+    background-color: rgb(27, 27, 27);
+}
+.bolinhaPreta {
+    background-color: rgb(27, 27, 27);
+}
+.bolinhaVermelha {
+    background-color: rgb(184, 54, 54);
+}
+
+/*  </allan>    */
