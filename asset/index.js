@@ -1,44 +1,5 @@
 //FOSTER
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//ROMULO
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//FOSTER
-
-
 for (let i = 0; i <= 6; i ++){
     let tabela = document.getElementById('tabelaJogo')
     let addDiv = document.createElement('div')
@@ -65,12 +26,6 @@ function addDisco(){
 
 
 
-
-
-
-
-
-
 //ROMULO
 
 
@@ -81,19 +36,7 @@ function addDisco(){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 // ALLAN
-
 // Alterna jogador
 
 // CRIANDO LOCAL COM O TEXTO DA VEZ DO JOGADOR
@@ -107,7 +50,14 @@ body.appendChild(blocoVezdoJogador)
 
 let vezDoVermelho = true // variavel que dirá se é a vez do jogador vermelho
 
+// REPRESENTAÇÃO DA BOLINHA QUE SERÁ CRIADA
+const bolinhaTeste = document.createElement('div')
+bolinhaTeste.style.width = '100px'
+bolinhaTeste.style.height = '100px'
+body.appendChild(bolinhaTeste)
+alternaJogador(bolinhaTeste)
 
+// FUNÇÃO QUE ALTERNA JOGADOR
 function alternaJogador(bolinhaCriada) { // a cada jogada será chamada essa função que intercalará a vez do jogador
     if (vezDoVermelho === false) {
         vezDoVermelho = true
@@ -127,4 +77,13 @@ function alternaJogador(bolinhaCriada) { // a cada jogada será chamada essa fun
 
     return vezDoVermelho // retorno da vez do jogador
 }
+
+// DANIEL
+
+
+
+
+
+
+
 
