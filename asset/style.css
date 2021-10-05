@@ -10,11 +10,14 @@
 .coluna {
   width: 35px;
   background-color: midnightblue;
+  display: flex;
+  flex-direction: column-reverse;
 }
 
 
 /*RÔMULO*/
 .disco {
+  background-color: white;
 border-radius: 50%;
 height: 30px;
 width: 30px;
