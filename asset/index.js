@@ -1,21 +1,16 @@
 //FOSTER
 
 
-for (let i = 0; i <= 6; i ++){
-let tabela = document.getElementById('tabelaJogo')
-let addDiv = document.createElement('div')
-tabela.appendChild(addDiv);
-addDiv.classList.add('coluna')
-}
 
+<<<<<<< HEAD
 let colunas = document.querySelectorAll('coluna')
+=======
+>>>>>>> develop
 
-colunas.forEach(coluna => {
-    coluna.addEventListener("click", addDisco)
-});
 
 // RÔMULO
 
+<<<<<<< HEAD
 //Função de criação de novo disco
 let novoDisco;
 function addDisco( coluna, linha) {
@@ -25,6 +20,22 @@ function addDisco( coluna, linha) {
     novoDisco.classList.add(coluna + "x" + linha)
     linhaAtual.appendChild(novoDisco)
 }
+=======
+
+
+
+
+
+
+
+
+
+
+
+
+//ROMULO
+
+>>>>>>> develop
 
 // ALLAN
 
@@ -59,7 +70,109 @@ function alternaJogador(bolinhaCriada) { // a cada jogada será chamada essa fun
         bolinhaCriada.classList.add('bolinhaPreta') // exemplo
     }
 
+<<<<<<< HEAD
+    return vezDoVermelho // retorno da vez do jogador
+}
+=======
+
+
+
+
+
+
+
+
+
+//FOSTER
+
+
+for (let i = 0; i <= 6; i ++){
+    let tabela = document.getElementById('tabelaJogo')
+    let addDiv = document.createElement('div')
+    tabela.appendChild(addDiv);
+    addDiv.classList.add('coluna')
+}
+
+let colunas = document.querySelectorAll('.coluna')
+
+colunas.forEach(coluna => {
+    coluna.addEventListener("click", addDisco)
+});
+
+function addDisco(){
+    console.log("bla")
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//ROMULO
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ALLAN
+
+// Alterna jogador
+
+// CRIANDO LOCAL COM O TEXTO DA VEZ DO JOGADOR
+const body = document.getElementsByTagName('BODY')[0]
+const blocoVezdoJogador = document.createElement('div')
+blocoVezdoJogador.id = 'blocoVezdoJogador'
+blocoVezdoJogador.classList.add('blocoVezdoJogadorVermelho')
+blocoVezdoJogador.innerText = 'Vez do jogador vermelhor'
+body.appendChild(blocoVezdoJogador)
+
+>>>>>>> develop
+
+let vezDoVermelho = true // variavel que dirá se é a vez do jogador vermelho
+
+
+function alternaJogador(bolinhaCriada) { // a cada jogada será chamada essa função que intercalará a vez do jogador
+    if (vezDoVermelho === false) {
+        vezDoVermelho = true
+        blocoVezdoJogador.classList.remove('blocoVezdoJogadorPreto')
+        blocoVezdoJogador.classList.add('blocoVezdoJogadorVermelho')
+        blocoVezdoJogador.innerText = 'Vez do jogador vermelhor'
+        bolinhaCriada.classList.remove('bolinhaPreta') // exemplo
+        bolinhaCriada.classList.add('bolinhaVermelha') // exemplo
+    } else {
+        vezDoVermelho = false
+        blocoVezdoJogador.classList.remove('blocoVezdoJogadorVermelho')
+        blocoVezdoJogador.classList.add('blocoVezdoJogadorPreto')
+        blocoVezdoJogador.innerText = 'Vez do jogador preto'
+        bolinhaCriada.classList.remove('bolinhaVermelha') // exemplo
+        bolinhaCriada.classList.add('bolinhaPreta') // exemplo
+    }
+
     return vezDoVermelho // retorno da vez do jogador
 }
 
-//DANIEL
