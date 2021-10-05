@@ -1,3 +1,17 @@
+#tabelaJogo {
+    
+    border: 2px solid;
+    height: 210px;
+    width: 245px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.coluna {
+    width: 35px;
+    background-color: midnightblue;
+}
+
 /*  <allan>  */
 body {
     width: 100vw;
