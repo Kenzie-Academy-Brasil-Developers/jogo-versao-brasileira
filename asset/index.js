@@ -1,12 +1,13 @@
 //FOSTER
 const tabelaArray = [
-    [0,0,0,0,0,0], 
     [0,0,0,0,0,0],
-    [0,0,0,0,0,0],
-    [0,0,0,0,0,0],
-    [0,0,0,0,0,0],
-    [0,0,0,0,0,0],
-    [0,0,0,0,0,0]
+    [], 
+    [],
+    [],
+    [],
+    [],
+    [],
+    []
 ]
 
 for (let i = 0; i <= 6; i ++){
@@ -32,14 +33,15 @@ function addDisco(event) {
     console.log(event)
     let linhaAtual = document.getElementById(event.target.id)
     novoDisco = document.createElement('div')
+    alternaJogador(novoDisco)
     novoDisco.classList.add('disco')
     linhaAtual.appendChild(novoDisco)
-    
     //FOSTER
     if (vezDoVermelho === true){
-        tabelaArray[this.id][tabelaArray.lenght -1 -this.childElementCount] = 'Red'
+        
+        tabelaArray[this.id].push('Red')
     } else {
-        tabelaArray[this.id][tabelaArray.lenght -1 -this.childElementCount] = 'Black'
+        tabelaArray[this.id].push('Black')
       }
 }
 
@@ -75,7 +77,7 @@ body.appendChild(blocoVezdoJogador)
 let vezDoVermelho = true // variavel que dirá se é a vez do jogador vermelho
 
 
-function alternaJogador(bolinhaCriadano) { // a cada jogada será chamada essa função que intercalará a vez do jogador
+function alternaJogador(bolinhaCriada) { // a cada jogada será chamada essa função que intercalará a vez do jogador
     if (vezDoVermelho === false) {
         vezDoVermelho = true
         blocoVezdoJogador.classList.remove('blocoVezdoJogadorPreto')
