@@ -29,19 +29,22 @@ colunas.forEach(coluna => {
 //Função de criação de novo disco
 let novoDisco;
 function addDisco(event) {
-    console.log(event)
+    // console.log(event)
     let linhaAtual = document.getElementById(event.target.id)
     novoDisco = document.createElement('div')
-    alternaJogador(novoDisco)
     novoDisco.classList.add('disco')
+    alternaJogador(novoDisco)
     linhaAtual.appendChild(novoDisco)
+
     //FOSTER
     if (vezDoVermelho === true){
         
         tabelaArray[this.id].push('Red')
     } else {
         tabelaArray[this.id].push('Black')
-      }
+    }
+
+    condicaoVitoriaHorizontal(linhaAtual)
 }
 
 
@@ -97,10 +100,7 @@ blocoVezdoJogador.classList.add('blocoVezdoJogadorVermelho')
 blocoVezdoJogador.innerText = 'Vez do jogador vermelho'
 body.appendChild(blocoVezdoJogador)
 
-
-
 let vezDoVermelho = true // variavel que dirá se é a vez do jogador vermelho
-
 
 function alternaJogador(bolinhaCriada) { // a cada jogada será chamada essa função que intercalará a vez do jogador
     if (vezDoVermelho === false) {
@@ -122,4 +122,51 @@ function alternaJogador(bolinhaCriada) { // a cada jogada será chamada essa fun
     }
 
     return vezDoVermelho // retorno da vez do jogador
+}
+
+function vitoria() {
+    let jogador
+    if (vezDoVermelho === false) {
+        jogador = 'Vermelho'
+    } else {
+        jogador = 'Preto'
+    }
+
+    body.innerHTML = ''
+
+    const blocoResultado = document.createElement('div')
+    blocoResultado.classList.add('blocoResultado')
+    
+    const texto = document.createElement('h2')
+    texto.classList.add('textoResultado')
+    texto.innerHTML = `O jogador ${jogador} venceu!`
+    blocoResultado.appendChild(texto)
+
+    const botaoReiniciar = document.createElement('button')
+    botaoReiniciar.classList.add('botaoReiniciar')
+    botaoReiniciar.innerText = 'Reiniciar Jogo'
+    body.appendChild(botaoReiniciar)
+
+    body.appendChild(blocoResultado)
+}
+
+function condicaoVitoriaHorizontal(colunaClicada) {
+    if ( colunaClicada.childElementCount > 3 ) {
+        const filhosColuna = colunaClicada.childNodes
+        let contador = 0
+
+        for (let index = 1; index < 4; index++) {
+            if (filhosColuna[filhosColuna.length - index].className !== filhosColuna[filhosColuna.length - index - 1].className) {
+                continue
+            } else {
+                contador++
+
+                if (contador === 3) {
+                    console.log('VITÓRIA')
+                    return true
+                }
+            }
+        }
+    }
+    return false
 }
