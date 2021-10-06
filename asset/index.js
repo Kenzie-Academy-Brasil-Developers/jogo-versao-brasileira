@@ -57,6 +57,32 @@ function colunaCheia(number) {
     }
 }
 
+//FUNÇÃO DE VERIFICAÇÃO DE COMBINAÇÃO DIAGONAL PARA BAIXO
+let possibilidades = [];
+let combinacaoDiscos = 4;
+const diagonalBaixo = () => {
+    for (let i = 0; i < 4; i++) {
+      for (let r = 0; r < 3; r++) {
+        let combinacao = [];
+        for (let j = 0; j < combinacaoDiscos; j++) {
+          combinacao.push(tabelaArray[i + j][j + r]);
+        }
+        possibilidades.push(combinacao);
+      }
+    }
+  };
+  //FUNÇÃO DE VERIFICAÇÃO DE COMBINAÇÃO DIAGONAL PARA CIMA
+  const diagonalCima = () => {
+    for (let i = 3; i < 7; i++) {
+      for (let r = 0; r < 3; r++) {
+        let combinacao = [];
+        for (let j = 0; j < combinacaoDiscos; j++) {
+          combinacaoDiscos.push(tabelaArray[i - j][j + r]);
+        }
+        possibilidades.push(combinacao);
+      }
+    }
+  };
 
 // ALLAN
 
