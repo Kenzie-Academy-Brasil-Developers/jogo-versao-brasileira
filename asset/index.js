@@ -36,7 +36,6 @@ function addDisco(event) {
     alternaJogador(novoDisco)
     linhaAtual.appendChild(novoDisco)
 
-    codicaodeVitoriaHorizontal()
     //FOSTER
     if (vezDoVermelho === true){
         
@@ -45,6 +44,7 @@ function addDisco(event) {
         tabelaArray[this.id].push('Black')
     }
 
+    condicaoVitoriaHorizontal(linhaAtual)
 }
 
 
@@ -127,33 +127,33 @@ function alternaJogador(bolinhaCriada) { // a cada jogada será chamada essa fun
     return vezDoVermelho // retorno da vez do jogador
 }
 
-function codicaodeVitoriaHorizontal() {
+// function codicaodeVitoriaHorizontal() {
 
-    for (let coluna = 0; coluna < colunas.length; coluna++) {    
-        let filhosColuna = colunas[coluna].childNodes
-        let contadorDeIgualdade = 0
+//     for (let coluna = 0; coluna < colunas.length; coluna++) {    
+//         let filhosColuna = colunas[coluna].childNodes
+//         let contadorDeIgualdade = 0
 
-        if (filhosColuna.length < 4) {
-            continue
-        } else {
-            for (let celula = 1; celula < filhosColuna.length; celula++) {
-                if (filhosColuna[celula - 1].className === filhosColuna[celula].className) {
-                    contadorDeIgualdade++
+//         if (filhosColuna.length < 4) {
+//             continue
+//         } else {
+//             for (let celula = 1; celula < filhosColuna.length; celula++) {
+//                 if (filhosColuna[celula - 1].className === filhosColuna[celula].className) {
+//                     contadorDeIgualdade++
                     
-                    if (contadorDeIgualdade === 3) {
-                        vitoria()
-                        return true
-                    }
+//                     if (contadorDeIgualdade === 3) {
+//                         vitoria()
+//                         return true
+//                     }
                 
-                } else {
-                    contadorDeIgualdade = 0
-                }
-            }
-        }   
-    }
+//                 } else {
+//                     contadorDeIgualdade = 0
+//                 }
+//             }
+//         }   
+//     }
 
-    return false
-}
+//     return false
+// }
 
 function vitoria() {
     let jogador
@@ -179,4 +179,25 @@ function vitoria() {
     body.appendChild(botaoReiniciar)
 
     body.appendChild(blocoResultado)
+}
+
+function condicaoVitoriaHorizontal(colunaClicada) {
+    if ( colunaClicada.childElementCount > 3 ) {
+        const filhosColuna = colunaClicada.childNodes
+        let contador = 0
+
+        for (let index = 1; index < 4; index++) {
+            if (filhosColuna[filhosColuna.length - index].className !== filhosColuna[filhosColuna.length - index - 1].className) {
+                continue
+            } else {
+                contador++
+
+                if (contador === 3) {
+                    console.log('VITÓRIA')
+                    return true
+                }
+            }
+        }
+    }
+    return false
 }
