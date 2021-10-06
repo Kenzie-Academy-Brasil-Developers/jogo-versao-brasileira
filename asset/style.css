@@ -62,4 +62,22 @@
   .bolinhaVermelha {
     background-color: rgb(184, 54, 54);
   }
+  .blocoResultado {
+      min-width: 200px;
+      max-width: 500px;
+      width: 80%;
+      height: 200px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background-color: #0000e2;
+      color: white;
+  }
+  .textoResultado {
+      font-size: 25px;
+      font-weight: 700;
+      font-family: Arial, Helvetica, sans-serif;
+      margin-bottom: 30px;
+  }
   /*  </allan>    */

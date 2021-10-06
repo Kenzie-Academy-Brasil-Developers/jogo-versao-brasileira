@@ -30,19 +30,22 @@ colunas.forEach(coluna => {
 //Função de criação de novo disco
 let novoDisco;
 function addDisco(event) {
-    console.log(event)
+    // console.log(event)
     let linhaAtual = document.getElementById(event.target.id)
     novoDisco = document.createElement('div')
-    alternaJogador(novoDisco)
     novoDisco.classList.add('disco')
+    alternaJogador(novoDisco)
     linhaAtual.appendChild(novoDisco)
+
+    codicaodeVitoriaHorizontal()
     //FOSTER
     if (vezDoVermelho === true){
         
         tabelaArray[this.id].push('Red')
     } else {
         tabelaArray[this.id].push('Black')
-      }
+    }
+
 }
 
 
@@ -123,4 +126,58 @@ function alternaJogador(bolinhaCriada) { // a cada jogada será chamada essa fun
     }
 
     return vezDoVermelho // retorno da vez do jogador
+}
+
+function codicaodeVitoriaHorizontal() {
+
+    for (let coluna = 0; coluna < colunas.length; coluna++) {    
+        let filhosColuna = colunas[coluna].childNodes
+        let contadorDeIgualdade = 0
+
+        if (filhosColuna.length < 4) {
+            continue
+        } else {
+            for (let celula = 1; celula < filhosColuna.length; celula++) {
+                if (filhosColuna[celula - 1].className === filhosColuna[celula].className) {
+                    contadorDeIgualdade++
+                    
+                    if (contadorDeIgualdade === 3) {
+                        vitoria()
+                        return true
+                    }
+                
+                } else {
+                    contadorDeIgualdade = 0
+                }
+            }
+        }   
+    }
+
+    return false
+}
+
+function vitoria() {
+    let jogador
+    if (vezDoVermelho === false) {
+        jogador = 'Vermelho'
+    } else {
+        jogador = 'Preto'
+    }
+
+    body.innerHTML = ''
+
+    const blocoResultado = document.createElement('div')
+    blocoResultado.classList.add('blocoResultado')
+    
+    const texto = document.createElement('h2')
+    texto.classList.add('textoResultado')
+    texto.innerHTML = `O jogador ${jogador} venceu!`
+    blocoResultado.appendChild(texto)
+
+    const botaoReiniciar = document.createElement('button')
+    botaoReiniciar.classList.add('botaoReiniciar')
+    botaoReiniciar.innerText = 'Reiniciar Jogo'
+    body.appendChild(botaoReiniciar)
+
+    body.appendChild(blocoResultado)
 }
