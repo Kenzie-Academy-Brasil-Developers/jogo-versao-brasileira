@@ -69,7 +69,7 @@ const body = document.getElementsByTagName('BODY')[0]
 const blocoVezdoJogador = document.createElement('div')
 blocoVezdoJogador.id = 'blocoVezdoJogador'
 blocoVezdoJogador.classList.add('blocoVezdoJogadorVermelho')
-blocoVezdoJogador.innerText = 'Vez do jogador vermelhor'
+blocoVezdoJogador.innerText = 'Vez do jogador vermelho'
 body.appendChild(blocoVezdoJogador)
 
 
@@ -82,16 +82,18 @@ function alternaJogador(bolinhaCriada) { // a cada jogada será chamada essa fun
         vezDoVermelho = true
         blocoVezdoJogador.classList.remove('blocoVezdoJogadorPreto')
         blocoVezdoJogador.classList.add('blocoVezdoJogadorVermelho')
-        blocoVezdoJogador.innerText = 'Vez do jogador vermelhor'
-        bolinhaCriada.classList.remove('bolinhaPreta') // exemplo
-        bolinhaCriada.classList.add('bolinhaVermelha') // exemplo
+        blocoVezdoJogador.innerText = 'Vez do jogador vermelho'
+        bolinhaCriada.classList.remove('bolinhaVermelha') // exemplo
+        bolinhaCriada.classList.add('bolinhaPreta') // exemplo
+
     } else {
         vezDoVermelho = false
         blocoVezdoJogador.classList.remove('blocoVezdoJogadorVermelho')
         blocoVezdoJogador.classList.add('blocoVezdoJogadorPreto')
         blocoVezdoJogador.innerText = 'Vez do jogador preto'
-        bolinhaCriada.classList.remove('bolinhaVermelha') // exemplo
-        bolinhaCriada.classList.add('bolinhaPreta') // exemplo
+        bolinhaCriada.classList.remove('bolinhaPreta') // exemplo
+        bolinhaCriada.classList.add('bolinhaVermelha') // exemplo
+
     }
 
     return vezDoVermelho // retorno da vez do jogador
