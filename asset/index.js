@@ -100,10 +100,7 @@ blocoVezdoJogador.classList.add('blocoVezdoJogadorVermelho')
 blocoVezdoJogador.innerText = 'Vez do jogador vermelho'
 body.appendChild(blocoVezdoJogador)
 
-
-
 let vezDoVermelho = true // variavel que dirá se é a vez do jogador vermelho
-
 
 function alternaJogador(bolinhaCriada) { // a cada jogada será chamada essa função que intercalará a vez do jogador
     if (vezDoVermelho === false) {
@@ -126,34 +123,6 @@ function alternaJogador(bolinhaCriada) { // a cada jogada será chamada essa fun
 
     return vezDoVermelho // retorno da vez do jogador
 }
-
-// function codicaodeVitoriaHorizontal() {
-
-//     for (let coluna = 0; coluna < colunas.length; coluna++) {    
-//         let filhosColuna = colunas[coluna].childNodes
-//         let contadorDeIgualdade = 0
-
-//         if (filhosColuna.length < 4) {
-//             continue
-//         } else {
-//             for (let celula = 1; celula < filhosColuna.length; celula++) {
-//                 if (filhosColuna[celula - 1].className === filhosColuna[celula].className) {
-//                     contadorDeIgualdade++
-                    
-//                     if (contadorDeIgualdade === 3) {
-//                         vitoria()
-//                         return true
-//                     }
-                
-//                 } else {
-//                     contadorDeIgualdade = 0
-//                 }
-//             }
-//         }   
-//     }
-
-//     return false
-// }
 
 function vitoria() {
     let jogador
