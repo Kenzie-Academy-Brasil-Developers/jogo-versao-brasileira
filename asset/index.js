@@ -170,3 +170,30 @@ function condicaoVitoriaHorizontal(colunaClicada) {
     }
     return false
 }
+
+document.addEventListener('keydown', (event) => {
+    const keyName = event.key - 1
+    let cilindro = document.querySelectorAll('.coluna')[keyName]
+    
+    addDiscoTeclado(cilindro, keyName)
+
+})
+
+function addDiscoTeclado(cilindro, posicaoCilindro) {
+    console.log(cilindro)
+
+    novoDisco = document.createElement('div')
+    novoDisco.classList.add('disco')
+    alternaJogador(novoDisco)
+    cilindro.appendChild(novoDisco)
+
+    //FOSTER
+    if (vezDoVermelho === true){
+        
+        tabelaArray[posicaoCilindro].push('Red')
+    } else {
+        tabelaArray[posicaoCilindro].push('Black')
+    }
+
+    condicaoVitoriaHorizontal(cilindro)
+}
