@@ -302,10 +302,8 @@ function condicaoVitoriaVertical(event) {
                 break
             }
         }
-        console.log(contador===4)
         return contador===4
     }
-    console.log('Menos que 3')
     return false
 }
 
