@@ -47,28 +47,28 @@ function addDisco(event) {
         tabelaArray[this.id].push('Black')
     }
 
-    if (this.id == 0){
-      col = 0;
-    } else if (this.id == 1){
-      col = 1
-    } else if (this.id == 2){
-      col = 2
-    } else if (this.id == 3){
-      col = 3
-    } else if (this.id == 4){
-      col = 4
-    } else if (this.id == 5){
-      col = 5
-    }  else if (this.id == 6){
-      col = 6
-    }
+    // if (this.id == 0){
+    //   col = 0;
+    // } else if (this.id == 1){
+    //   col = 1
+    // } else if (this.id == 2){
+    //   col = 2
+    // } else if (this.id == 3){
+    //   col = 3
+    // } else if (this.id == 4){
+    //   col = 4
+    // } else if (this.id == 5){
+    //   col = 5
+    // }  else if (this.id == 6){
+    //   col = 6
+    // }
 
-
-    horizontal()
+    //DANIEL - ADICIONADO PARAMETRO PARA A HORIZONTAL TAMBÉM
+    horizontal(event)
     condicaoVitoriaVertical(event)
     diagonalSubindo(event)
     diagonalDescendo(event)
-    if (horizontal() === true || condicaoVitoriaVertical(event) === true || diagonalSubindo(event) === true || diagonalDescendo(event) === true){
+    if (horizontal(event) === true || condicaoVitoriaVertical(event) === true || diagonalSubindo(event) === true || diagonalDescendo(event) === true){
         alert('Vitória do jogador: ' + jogador)
     }
     
@@ -83,9 +83,12 @@ const limitaQuantidade = event => {
     return true
 }
 // FUNÇÃO DE VERIFICAÇÃO DE COMBINAÇÃO HORIZONTAL -- FOSTER
-let posicao;
-function horizontal() {
+function horizontal(event) {
+    let posicao;
+    let col = Number(event.target.id)
+    console.log(event.target.id)
     posicao = tabelaArray[col].length-1
+    console.log(posicao)
        
     if (tabelaArray[0][posicao] !== undefined 
         && tabelaArray[0][posicao] === tabelaArray[1][posicao]
