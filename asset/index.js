@@ -44,42 +44,94 @@ colunas.forEach(coluna => {
   coluna.addEventListener("click", addDisco)
 });
 
-
+let col = 0;
 //ROMULO
 
 //Função de criação de novo disco
 let novoDisco;
 function addDisco(event) {
-  let linhaAtual = document.getElementById(event.target.id)
-  if(limitaQuantidade(event)===false){
-      return console.log("A coluna nao pode receber mais discos")
-  }
-  novoDisco = document.createElement('div')
-  novoDisco.classList.add('disco')
-  novoDisco.classList.add('bolinhaVermelha')
-  linhaAtual.appendChild(novoDisco)
-  
-  //FOSTER
-  if (vezDoVermelho === true){
-      
-      tabelaArray[this.id].push('Red')
-  } else {
-      tabelaArray[this.id].push('Black')
-  }
-  
-  condicaoVitoriaVertical(event)
-  diagonalSubindo(event)
-  diagonalDescendo(event)
-  alternaJogador(novoDisco)
+    let linhaAtual = document.getElementById(event.target.id)
+    if(limitaQuantidade(event)===false){
+        return console.log("A coluna nao pode receber mais discos")
+    }
+    novoDisco = document.createElement('div')
+    novoDisco.classList.add('disco')
+    novoDisco.classList.add('bolinhaVermelha')
+    linhaAtual.appendChild(novoDisco)
+    let jogador = true
+    //FOSTER
+    if (vezDoVermelho === true){
+        jogador = "Vermelho"
+        tabelaArray[this.id].push('Red')
+    } else {
+        jogador = "Preto"
+        tabelaArray[this.id].push('Black')
+    }
+
+    if (this.id == 0){
+      col = 0;
+    } else if (this.id == 1){
+      col = 1
+    } else if (this.id == 2){
+      col = 2
+    } else if (this.id == 3){
+      col = 3
+    } else if (this.id == 4){
+      col = 4
+    } else if (this.id == 5){
+      col = 5
+    }  else if (this.id == 6){
+      col = 6
+    }
+
+
+    horizontal()
+    condicaoVitoriaVertical(event)
+    diagonalSubindo(event)
+    diagonalDescendo(event)
+    if (horizontal() === true || condicaoVitoriaVertical(event) === true || diagonalSubindo(event) === true || diagonalDescendo(event) === true){
+        alert('Vitória do jogador: ' + jogador)
+    }
+    
+    alternaJogador(novoDisco)
 }
 
 //DANIEL-alternativa de função para limitar quantidade:
 const limitaQuantidade = event => {
-  if(event.target.querySelectorAll('.disco').length>=6) {
-      return false
-  }
-  return true
+    if(event.target.querySelectorAll('.disco').length>=6) {
+        return false
+    }
+    return true
 }
+// FUNÇÃO DE VERIFICAÇÃO DE COMBINAÇÃO HORIZONTAL -- FOSTER
+let posicao;
+function horizontal() {
+    posicao = tabelaArray[col].length-1
+       
+    if (tabelaArray[0][posicao] !== undefined 
+        && tabelaArray[0][posicao] === tabelaArray[1][posicao]
+        && tabelaArray[0][posicao] === tabelaArray[2][posicao]
+        && tabelaArray[0][posicao] === tabelaArray[3][posicao]){
+      return true
+    } else if (tabelaArray[1][posicao] !== undefined 
+        && tabelaArray[1][posicao] === tabelaArray[2][posicao] 
+        && tabelaArray[1][posicao] === tabelaArray[3][posicao] 
+        && tabelaArray[1][posicao] === tabelaArray[4][posicao]){
+      return true
+    } else if (tabelaArray[2][posicao] !== undefined 
+        && tabelaArray[2][posicao] === tabelaArray[3][posicao] 
+        && tabelaArray[2][posicao] === tabelaArray[4][posicao] 
+        && tabelaArray[2][posicao] === tabelaArray[5][posicao]){
+      return true
+    }else if (tabelaArray[3][posicao] !== undefined 
+        && tabelaArray[3][posicao] === tabelaArray[4][posicao] 
+        && tabelaArray[3][posicao] === tabelaArray[5][posicao] 
+        && tabelaArray[3][posicao] === tabelaArray[6][posicao]){
+      return true
+    } else {
+      return false
+    }
+} 
 
 //Função para limitar quantidade de elementos em cada coluna
 // function colunaCheia(number) {
@@ -123,59 +175,57 @@ const limitaQuantidade = event => {
 
 //DANIEL: Função alternativa para diagonal
 const diagonalSubindo = event => {
-  let col = Number(event.target.id)
-  let lin = event.target.querySelectorAll('.disco').length-1
-  let count = 1;
-  for (let i = 1; i <= 3; i++){
-      if(col+i>6||lin+i>5) {
-          break
-      }
-      if(tabelaArray[col][lin]===tabelaArray[col+i][lin+i]){
-          count++
-      } else {
-          break
-      }
-  }
-  for (let i = 1; i <= 3; i++){
-      if(col-i<0||lin-i<0) {
-          break
-      }
-      if(tabelaArray[col][lin]===tabelaArray[col-i][lin-i]){
-          count++
-      } else {
-          break
-      }
-  }
-  console.log(count===4)
-  return (count===4)
+    let col = Number(event.target.id)
+    let lin = event.target.querySelectorAll('.disco').length-1
+    let count = 1;
+    for (let i = 1; i <= 3; i++){
+        if(col+i>6||lin+i>5) {
+            break
+        }
+        if(tabelaArray[col][lin]===tabelaArray[col+i][lin+i]){
+            count++
+        } else {
+            break
+        }
+    }
+    for (let i = 1; i <= 3; i++){
+        if(col-i<0||lin-i<0) {
+            break
+        }
+        if(tabelaArray[col][lin]===tabelaArray[col-i][lin-i]){
+            count++
+        } else {
+            break
+        }
+    }
+    return (count===4)
 }
 
 const diagonalDescendo = event => {
-  let col = Number(event.target.id)
-  let lin = event.target.querySelectorAll('.disco').length-1
-  let count = 1;
-  for (let i = 1; i <= 3; i++){
-      if(col+i>6||lin-i<0) {
-          break
-      }
-      if(tabelaArray[col][lin]===tabelaArray[col+i][lin-i]){
-          count++
-      } else {
-          break
-      }
-  }
-  for (let i = 1; i <= 3; i++){
-      if(col-i<0||lin+i>5) {
-          break
-      }
-      if(tabelaArray[col][lin]===tabelaArray[col-i][lin+i]){
-          count++
-      } else {
-          break
-      }
-  }
-  console.log(count===4)
-  return (count===4)
+    let col = Number(event.target.id)
+    let lin = event.target.querySelectorAll('.disco').length-1
+    let count = 1;
+    for (let i = 1; i <= 3; i++){
+        if(col+i>6||lin-i<0) {
+            break
+        }
+        if(tabelaArray[col][lin]===tabelaArray[col+i][lin-i]){
+            count++
+        } else {
+            break
+        }
+    }
+    for (let i = 1; i <= 3; i++){
+        if(col-i<0||lin+i>5) {
+            break
+        }
+        if(tabelaArray[col][lin]===tabelaArray[col-i][lin+i]){
+            count++
+        } else {
+            break
+        }
+    }
+    return (count===4)
 }
 
 // ALLAN
@@ -226,7 +276,7 @@ function alternaJogador(bolinhaCriada) { // a cada jogada será chamada essa fun
 
 //     const blocoResultado = document.createElement('div')
 //     blocoResultado.classList.add('blocoResultado')
-  
+    
 //     const texto = document.createElement('h2')
 //     texto.classList.add('textoResultado')
 //     texto.innerHTML = `O jogador ${jogador} venceu!`
@@ -262,58 +312,56 @@ function alternaJogador(bolinhaCriada) { // a cada jogada será chamada essa fun
 
 // CORREÇÃO CONDIÇÃO VITÓRIA VERTICAL E REFATORAÇÃO - DANIEL
 function condicaoVitoriaVertical(event) {
-  const col = Number(event.target.id)
-  const lin = tabelaArray[event.target.id].length-1
-  console.log(lin)
-  if (tabelaArray[lin+1].length > 3){
-      let contador = 1
-      for (let index = 1; index <= 3; index++) {
-          if (tabelaArray[col][lin] === tabelaArray[col][lin-index]) {
-              contador++
-          } else {
-              break
-          }
-      }
-      console.log(contador===4)
-      return contador===4
-  }
-  return false
+    const col = Number(event.target.id)
+    const lin = tabelaArray[event.target.id].length-1
+    if (tabelaArray[col].length > 3){
+        let contador = 1
+        for (let index = 1; index <= 3; index++) {
+            if (tabelaArray[col][lin] === tabelaArray[col][lin-index]) {
+                contador++
+            } else {
+                break
+            }
+        }
+        return contador===4
+    }
+    return false
 }
 
 
 //  EVENTO TECLA NUMÉRICA DE 1 A 7
 document.addEventListener('keydown', (event) => {
-  const keyName = event.key - 1
-  let cilindro = document.querySelectorAll('.coluna')[keyName]
- 
-  if (keyName >= 0 && keyName < 7) { // se precionar alguma tecla não confugurada evita erro no devTools
-      addDiscoTeclado(cilindro, keyName)
-  
-  } else {
-      console.log('Essa tecla não está configurada')
-  }
+    const keyName = event.key - 1
+    let cilindro = document.querySelectorAll('.coluna')[keyName]
+   
+    if (keyName >= 0 && keyName < 7) { // se precionar alguma tecla não confugurada evita erro no devTools
+        addDiscoTeclado(cilindro, keyName)
+    
+    } else {
+        console.log('Essa tecla não está configurada')
+    }
 })
 
 function addDiscoTeclado(cilindro, posicaoCilindro) {
 
-  if (cilindro.childElementCount >= 6) { // limitador de bolinhas na coluna
-      console.log('você não pode adicionar aqui')
- 
-  } else {
-      novoDisco = document.createElement('div')
-      novoDisco.classList.add('disco')
-      alternaJogador(novoDisco)
-      cilindro.appendChild(novoDisco)
-  
-      //FOSTER
-      if (vezDoVermelho === true){
-          
-          tabelaArray[posicaoCilindro].push('Red')
-      } else {
-          tabelaArray[posicaoCilindro].push('Black')
-      }
-  
-      condicaoVitoriaVertical(cilindro)
+    if (cilindro.childElementCount >= 6) { // limitador de bolinhas na coluna
+        console.log('você não pode adicionar aqui')
+   
+    } else {
+        novoDisco = document.createElement('div')
+        novoDisco.classList.add('disco')
+        alternaJogador(novoDisco)
+        cilindro.appendChild(novoDisco)
+    
+        //FOSTER
+        if (vezDoVermelho === true){
+            
+            tabelaArray[posicaoCilindro].push('Red')
+        } else {
+            tabelaArray[posicaoCilindro].push('Black')
+        }
+    
+        condicaoVitoriaVertical(cilindro)
 
-  }
+    }
 }
