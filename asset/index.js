@@ -69,7 +69,7 @@ function addDisco(event) {
     diagonalSubindo(event)
     diagonalDescendo(event)
     if (horizontal() === true || condicaoVitoriaVertical(event) === true || diagonalSubindo(event) === true || diagonalDescendo(event) === true){
-        alert('itoria do jogador: ' + jogador)
+        alert('Vitória do jogador: ' + jogador)
     }
     
     alternaJogador(novoDisco)
@@ -177,7 +177,6 @@ const diagonalSubindo = event => {
             break
         }
     }
-    console.log(count===4)
     return (count===4)
 }
 
@@ -205,7 +204,6 @@ const diagonalDescendo = event => {
             break
         }
     }
-    console.log(count===4)
     return (count===4)
 }
 
@@ -295,8 +293,7 @@ function alternaJogador(bolinhaCriada) { // a cada jogada será chamada essa fun
 function condicaoVitoriaVertical(event) {
     const col = Number(event.target.id)
     const lin = tabelaArray[event.target.id].length-1
-    console.log(lin)
-    if (tabelaArray[lin+1].length > 3){
+    if (tabelaArray[col].length > 3){
         let contador = 1
         for (let index = 1; index <= 3; index++) {
             if (tabelaArray[col][lin] === tabelaArray[col][lin-index]) {
@@ -308,6 +305,7 @@ function condicaoVitoriaVertical(event) {
         console.log(contador===4)
         return contador===4
     }
+    console.log('Menos que 3')
     return false
 }
 
