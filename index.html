@@ -4,17 +4,35 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="asset/reset.css">
-    <link rel="stylesheet" href="asset/style.css">
+    <link rel="stylesheet" href="./asset/style.css">
     <title>Versão Brasileira</title>
 </head>
 <body>
-    <h2>Vez do jogador: </h2>
-
-
-    <div id="tabelaJogo">
-        
-    </div>
-<script src="./asset/index.js"></script>
+    <header>
+        <h2>Code Wars</h2>
+        <section class="instruções">
+            <p>INSTRUÇÕES</p>
+            <p id="instruções-2">Você deverá formar uma ligação de 4 discos para <br>
+            alcançar a vitória, mas para isso, siga as seguintes regras:</p>
+            <ol>
+                <li>Os movimentos são alternados entre você e o adversário, portanto, clique <br>
+                apenas uma vez por jogada. </li>
+                <li>Para alcançar a vitória, construa uma ligação de 4 discos nas posições <br>
+                horizontal, vertical, ou diagonal.</li>
+                <li>Lembrando que para ser validada a vitória, seus discos não podem ser <br>
+                interrompidos por nenhum disco do adversario.</li>
+                <li>Em caso de empate, a disputa será feita no soco. Que vença o melhor, ou não!</li>
+            </ol>
+            <div id="div-play">
+                <button type="button" id="btn-start">START</button>
+            </div>
+        </header>
+        </section>
+        <section class="game-hidden">
+            <div id="tabelaJogo">
+            </div>
+        </section>
+        <link href="https://www.dafont.com/pt/star-jedi.font" rel="stylesheet">
+    <script src="./asset/index.js"></script>
 </body>
 </html>
