@@ -35,9 +35,8 @@ function addDisco(event) {
     }
     novoDisco = document.createElement('div')
     novoDisco.classList.add('disco')
-    alternaJogador(novoDisco)
     linhaAtual.appendChild(novoDisco)
-
+    
     //FOSTER
     if (vezDoVermelho === true){
         
@@ -45,30 +44,32 @@ function addDisco(event) {
     } else {
         tabelaArray[this.id].push('Black')
     }
-
+    
     condicaoVitoriaHorizontal(linhaAtual)
+    diagonalSubindo(event)
+    alternaJogador(novoDisco)
 }
 
 //DANIEL-alternativa de função para limitar quantidade:
-const limitaQuantidade = element => {
-    if(element.target.querySelectorAll('.disco').length>=6) {
+const limitaQuantidade = event => {
+    if(event.target.querySelectorAll('.disco').length>=6) {
         return false
     }
     return true
 }
 
 //Função para limitar quantidade de elementos em cada coluna
-function colunaCheia(number) {
-    let count = 0
-    for (let i = 0; i < tabelaArray[number].length; i++) {
-        if (tabelaArray[number][i] === 1 || tabelaArray[number][i] === 2) {
-            count++
-        }
-    }
-    if (count === 6) {
-        return alertErro("A coluna nao pode receber mais discos")
-    }
-}
+// function colunaCheia(number) {
+//     let count = 0
+//     for (let i = 0; i < tabelaArray[number].length; i++) {
+//         if (tabelaArray[number][i] === 1 || tabelaArray[number][i] === 2) {
+//             count++
+//         }
+//     }
+//     if (count === 6) {
+//         return alertErro("A coluna nao pode receber mais discos")
+//     }
+// }
 
 //FUNÇÃO DE VERIFICAÇÃO DE COMBINAÇÃO DIAGONAL PARA BAIXO
 let possibilidades = [];
@@ -98,8 +99,60 @@ const diagonalBaixo = () => {
   };
 
 //DANIEL: Função alternativa para diagonal
-const diagonalSubindo = position => {
+const diagonalSubindo = event => {
+    let col = Number(event.target.id)
+    let lin = event.target.querySelectorAll('.disco').length-1
+    let count = 1;
+    for (let i = 1; i <= 3; i++){
+        if(col+i>6||lin+i>5) {
+            break
+        }
+        if(tabelaArray[col][lin]===tabelaArray[col+i][lin+i]){
+            count++
+        } else {
+            break
+        }
+    }
+    for (let i = 1; i <= 3; i++){
+        if(col-i<0||lin-i<0) {
+            break
+        }
+        if(tabelaArray[col][lin]===tabelaArray[col-i][lin-i]){
+            count++
+        } else {
+            break
+        }
+    }
+    console.log(count===4)
+    return (count===4)
+}
 
+const diagonalDescendo = event => {
+    let col = Number(event.target.id)
+    let lin = event.target.querySelectorAll('.disco').length-1
+    let count = 1;
+    for (let i = 1; i <= 3; i++){
+        if(col+i>6||lin-i<0) {
+            break
+        }
+        if(tabelaArray[col][lin]===tabelaArray[col+i][lin-i]){
+            count++
+        } else {
+            break
+        }
+    }
+    for (let i = 1; i <= 3; i++){
+        if(col-i<0||lin+i>5) {
+            break
+        }
+        if(tabelaArray[col][lin]===tabelaArray[col-i][lin+i]){
+            count++
+        } else {
+            break
+        }
+    }
+    console.log(count===4)
+    return (count===4)
 }
 
 // ALLAN
@@ -138,31 +191,31 @@ function alternaJogador(bolinhaCriada) { // a cada jogada será chamada essa fun
     return vezDoVermelho // retorno da vez do jogador
 }
 
-function vitoria() {
-    let jogador
-    if (vezDoVermelho === false) {
-        jogador = 'Vermelho'
-    } else {
-        jogador = 'Preto'
-    }
+// function vitoria() {
+//     let jogador
+//     if (vezDoVermelho === false) {
+//         jogador = 'Vermelho'
+//     } else {
+//         jogador = 'Preto'
+//     }
 
-    body.innerHTML = ''
+//     body.innerHTML = ''
 
-    const blocoResultado = document.createElement('div')
-    blocoResultado.classList.add('blocoResultado')
+//     const blocoResultado = document.createElement('div')
+//     blocoResultado.classList.add('blocoResultado')
     
-    const texto = document.createElement('h2')
-    texto.classList.add('textoResultado')
-    texto.innerHTML = `O jogador ${jogador} venceu!`
-    blocoResultado.appendChild(texto)
+//     const texto = document.createElement('h2')
+//     texto.classList.add('textoResultado')
+//     texto.innerHTML = `O jogador ${jogador} venceu!`
+//     blocoResultado.appendChild(texto)
 
-    const botaoReiniciar = document.createElement('button')
-    botaoReiniciar.classList.add('botaoReiniciar')
-    botaoReiniciar.innerText = 'Reiniciar Jogo'
-    body.appendChild(botaoReiniciar)
+//     const botaoReiniciar = document.createElement('button')
+//     botaoReiniciar.classList.add('botaoReiniciar')
+//     botaoReiniciar.innerText = 'Reiniciar Jogo'
+//     body.appendChild(botaoReiniciar)
 
-    body.appendChild(blocoResultado)
-}
+//     body.appendChild(blocoResultado)
+// }
 
 function condicaoVitoriaHorizontal(colunaClicada) {
     if ( colunaClicada.childElementCount > 3 ) {
