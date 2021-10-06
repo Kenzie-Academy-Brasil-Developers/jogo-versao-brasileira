@@ -219,22 +219,14 @@ function alternaJogador(bolinhaCriada) { // a cada jogada será chamada essa fun
 // }
 
 function condicaoVitoriaVestical(colunaClicada) {
-    console.log(colunaClicada.childNodes)
-
     if ( colunaClicada.childElementCount > 3 ) {
         const filhosColuna = colunaClicada.childNodes
         let contador = 0
         for (let index = 1; index < 4; index++) {
-
-            console.log(filhosColuna[filhosColuna.length - index].className, 1)
-            console.log(filhosColuna[filhosColuna.length - index - 1].className, 2)
-
             if (filhosColuna[filhosColuna.length - index].className !== filhosColuna[filhosColuna.length - index - 1].className) {
                 continue
             } else {
                 contador++
-                console.log(contador)
-
                 if (contador >= 3) {
                     console.log('VITÓRIA')
                     return true
