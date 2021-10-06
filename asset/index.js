@@ -29,8 +29,10 @@ colunas.forEach(coluna => {
 //Função de criação de novo disco
 let novoDisco;
 function addDisco(event) {
-    // console.log(event)
     let linhaAtual = document.getElementById(event.target.id)
+    if(limitaQuantidade(event)===false){
+        return console.log("A coluna nao pode receber mais discos")
+    }
     novoDisco = document.createElement('div')
     novoDisco.classList.add('disco')
     alternaJogador(novoDisco)
@@ -47,6 +49,13 @@ function addDisco(event) {
     condicaoVitoriaHorizontal(linhaAtual)
 }
 
+//DANIEL-alternativa de função para limitar quantidade:
+const limitaQuantidade = element => {
+    if(element.target.querySelectorAll('.disco').length>=6) {
+        return false
+    }
+    return true
+}
 
 //Função para limitar quantidade de elementos em cada coluna
 function colunaCheia(number) {
@@ -87,6 +96,11 @@ const diagonalBaixo = () => {
       }
     }
   };
+
+//DANIEL: Função alternativa para diagonal
+const diagonalSubindo = position => {
+
+}
 
 // ALLAN
 
