@@ -45,7 +45,7 @@ function addDisco(event) {
         tabelaArray[this.id].push('Black')
     }
     
-    condicaoVitoriaHorizontal(linhaAtual)
+    condicaoVitoriaVestical(linhaAtual)
     diagonalSubindo(event)
     alternaJogador(novoDisco)
 }
@@ -217,7 +217,7 @@ function alternaJogador(bolinhaCriada) { // a cada jogada será chamada essa fun
 //     body.appendChild(blocoResultado)
 // }
 
-function condicaoVitoriaHorizontal(colunaClicada) {
+function condicaoVitoriaVestical(colunaClicada) {
     if ( colunaClicada.childElementCount > 3 ) {
         const filhosColuna = colunaClicada.childNodes
         let contador = 0
@@ -270,7 +270,7 @@ function addDiscoTeclado(cilindro, posicaoCilindro) {
             tabelaArray[posicaoCilindro].push('Black')
         }
     
-        condicaoVitoriaHorizontal(cilindro)
+        condicaoVitoriaVestical(cilindro)
 
     }
 }
