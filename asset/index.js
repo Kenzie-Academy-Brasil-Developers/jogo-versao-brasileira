@@ -23,7 +23,7 @@ colunas.forEach(coluna => {
     coluna.addEventListener("click", addDisco)
 });
 
-
+let col = 0;
 //ROMULO
 
 //Função de criação de novo disco
@@ -37,18 +37,41 @@ function addDisco(event) {
     novoDisco.classList.add('disco')
     novoDisco.classList.add('bolinhaVermelha')
     linhaAtual.appendChild(novoDisco)
-    
+    let jogador = true
     //FOSTER
     if (vezDoVermelho === true){
-        
+        jogador = "Vermelho"
         tabelaArray[this.id].push('Red')
     } else {
+        jogador = "Preto"
         tabelaArray[this.id].push('Black')
     }
-    
+
+    if (this.id == 0){
+      col = 0;
+    } else if (this.id == 1){
+      col = 1
+    } else if (this.id == 2){
+      col = 2
+    } else if (this.id == 3){
+      col = 3
+    } else if (this.id == 4){
+      col = 4
+    } else if (this.id == 5){
+      col = 5
+    }  else if (this.id == 6){
+      col = 6
+    }
+
+
+    horizontal()
     condicaoVitoriaVertical(event)
     diagonalSubindo(event)
     diagonalDescendo(event)
+    if (horizontal() === true || condicaoVitoriaVertical(event) === true || diagonalSubindo(event) === true || diagonalDescendo(event) === true){
+        alert('itoria do jogador: ' + jogador)
+    }
+    
     alternaJogador(novoDisco)
 }
 
@@ -59,6 +82,35 @@ const limitaQuantidade = event => {
     }
     return true
 }
+// FUNÇÃO DE VERIFICAÇÃO DE COMBINAÇÃO HORIZONTAL -- FOSTER
+let posicao;
+function horizontal() {
+    posicao = tabelaArray[col].length-1
+       
+    if (tabelaArray[0][posicao] !== undefined 
+        && tabelaArray[0][posicao] === tabelaArray[1][posicao]
+        && tabelaArray[0][posicao] === tabelaArray[2][posicao]
+        && tabelaArray[0][posicao] === tabelaArray[3][posicao]){
+      return true
+    } else if (tabelaArray[1][posicao] !== undefined 
+        && tabelaArray[1][posicao] === tabelaArray[2][posicao] 
+        && tabelaArray[1][posicao] === tabelaArray[3][posicao] 
+        && tabelaArray[1][posicao] === tabelaArray[4][posicao]){
+      return true
+    } else if (tabelaArray[2][posicao] !== undefined 
+        && tabelaArray[2][posicao] === tabelaArray[3][posicao] 
+        && tabelaArray[2][posicao] === tabelaArray[4][posicao] 
+        && tabelaArray[2][posicao] === tabelaArray[5][posicao]){
+      return true
+    }else if (tabelaArray[3][posicao] !== undefined 
+        && tabelaArray[3][posicao] === tabelaArray[4][posicao] 
+        && tabelaArray[3][posicao] === tabelaArray[5][posicao] 
+        && tabelaArray[3][posicao] === tabelaArray[6][posicao]){
+      return true
+    } else {
+      return false
+    }
+} 
 
 //Função para limitar quantidade de elementos em cada coluna
 // function colunaCheia(number) {
