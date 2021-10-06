@@ -30,6 +30,7 @@ colunas.forEach(coluna => {
 let novoDisco;
 function addDisco(event) {
     console.log(event)
+    colunaCheia(event.target)
     let linhaAtual = document.getElementById(event.target.id)
     novoDisco = document.createElement('div')
     alternaJogador(novoDisco)
@@ -47,14 +48,12 @@ function addDisco(event) {
 
 //Função para limitar quantidade de elementos em cada coluna
 function colunaCheia(number) {
-    let count = 0
-    for (let i = 0; i < tabelaArray[number].length; i++) {
-        if (tabelaArray[number][i] === 1 || tabelaArray[number][i] === 2) {
-            count++
+  number = querySelectorAll('disco')
+        if (number.length < 6) {
+            return false
         }
-    }
-    if (count === 6) {
-        return alertErro("A coluna nao pode receber mais discos")
+    if (number.length === 6) {
+      return true
     }
 }
 
