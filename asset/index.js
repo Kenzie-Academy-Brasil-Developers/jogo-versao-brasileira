@@ -185,29 +185,39 @@ function condicaoVitoriaHorizontal(colunaClicada) {
     return false
 }
 
+//  EVENTO TECLA NUMÉRICA DE 1 A 7
 document.addEventListener('keydown', (event) => {
     const keyName = event.key - 1
     let cilindro = document.querySelectorAll('.coluna')[keyName]
+   
+    if (keyName >= 0 && keyName < 7) { // se precionar alguma tecla não confugurada evita erro no devTools
+        addDiscoTeclado(cilindro, keyName)
     
-    addDiscoTeclado(cilindro, keyName)
-
+    } else {
+        console.log('Essa tecla não está configurada')
+    }
 })
 
 function addDiscoTeclado(cilindro, posicaoCilindro) {
-    console.log(cilindro)
 
-    novoDisco = document.createElement('div')
-    novoDisco.classList.add('disco')
-    alternaJogador(novoDisco)
-    cilindro.appendChild(novoDisco)
-
-    //FOSTER
-    if (vezDoVermelho === true){
-        
-        tabelaArray[posicaoCilindro].push('Red')
+    if (cilindro.childElementCount >= 6) { // limitador de bolinhas na coluna
+        console.log('você não pode adicionar aqui')
+   
     } else {
-        tabelaArray[posicaoCilindro].push('Black')
-    }
+        novoDisco = document.createElement('div')
+        novoDisco.classList.add('disco')
+        alternaJogador(novoDisco)
+        cilindro.appendChild(novoDisco)
+    
+        //FOSTER
+        if (vezDoVermelho === true){
+            
+            tabelaArray[posicaoCilindro].push('Red')
+        } else {
+            tabelaArray[posicaoCilindro].push('Black')
+        }
+    
+        condicaoVitoriaHorizontal(cilindro)
 
-    condicaoVitoriaHorizontal(cilindro)
+    }
 }
