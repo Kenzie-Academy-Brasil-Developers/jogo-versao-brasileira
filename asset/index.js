@@ -35,6 +35,7 @@ function addDisco(event) {
     }
     novoDisco = document.createElement('div')
     novoDisco.classList.add('disco')
+    novoDisco.classList.add('bolinhaVermelha')
     linhaAtual.appendChild(novoDisco)
     
     //FOSTER
@@ -45,7 +46,7 @@ function addDisco(event) {
         tabelaArray[this.id].push('Black')
     }
     
-    condicaoVitoriaHorizontal(linhaAtual)
+    condicaoVitoriaVestical(linhaAtual)
     diagonalSubindo(event)
     alternaJogador(novoDisco)
 }
@@ -217,18 +218,16 @@ function alternaJogador(bolinhaCriada) { // a cada jogada será chamada essa fun
 //     body.appendChild(blocoResultado)
 // }
 
-function condicaoVitoriaHorizontal(colunaClicada) {
+function condicaoVitoriaVestical(colunaClicada) {
     if ( colunaClicada.childElementCount > 3 ) {
         const filhosColuna = colunaClicada.childNodes
         let contador = 0
-
         for (let index = 1; index < 4; index++) {
             if (filhosColuna[filhosColuna.length - index].className !== filhosColuna[filhosColuna.length - index - 1].className) {
                 continue
             } else {
                 contador++
-
-                if (contador === 3) {
+                if (contador >= 3) {
                     console.log('VITÓRIA')
                     return true
                 }
@@ -236,4 +235,41 @@ function condicaoVitoriaHorizontal(colunaClicada) {
         }
     }
     return false
+}
+
+//  EVENTO TECLA NUMÉRICA DE 1 A 7
+document.addEventListener('keydown', (event) => {
+    const keyName = event.key - 1
+    let cilindro = document.querySelectorAll('.coluna')[keyName]
+   
+    if (keyName >= 0 && keyName < 7) { // se precionar alguma tecla não confugurada evita erro no devTools
+        addDiscoTeclado(cilindro, keyName)
+    
+    } else {
+        console.log('Essa tecla não está configurada')
+    }
+})
+
+function addDiscoTeclado(cilindro, posicaoCilindro) {
+
+    if (cilindro.childElementCount >= 6) { // limitador de bolinhas na coluna
+        console.log('você não pode adicionar aqui')
+   
+    } else {
+        novoDisco = document.createElement('div')
+        novoDisco.classList.add('disco')
+        alternaJogador(novoDisco)
+        cilindro.appendChild(novoDisco)
+    
+        //FOSTER
+        if (vezDoVermelho === true){
+            
+            tabelaArray[posicaoCilindro].push('Red')
+        } else {
+            tabelaArray[posicaoCilindro].push('Black')
+        }
+    
+        condicaoVitoriaVestical(cilindro)
+
+    }
 }
