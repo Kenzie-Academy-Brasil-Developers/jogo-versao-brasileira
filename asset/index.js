@@ -86,9 +86,7 @@ const limitaQuantidade = event => {
 function horizontal(event) {
     let posicao;
     let col = Number(event.target.id)
-    console.log(event.target.id)
     posicao = tabelaArray[col].length-1
-    console.log(posicao)
        
     if (tabelaArray[0][posicao] !== undefined 
         && tabelaArray[0][posicao] === tabelaArray[1][posicao]
