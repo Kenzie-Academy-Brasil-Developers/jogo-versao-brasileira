@@ -27,28 +27,32 @@ colunas.forEach(coluna => {
 //ROMULO
 
 //Função de criação de novo disco
+let vezDoVermelho = true // variavel que dirá se é a vez do jogador vermelho
 let novoDisco;
+
 function addDisco(event) {
     let linhaAtual = document.getElementById(event.target.id)
+    
     if(limitaQuantidade(event)===false){
         return console.log("A coluna nao pode receber mais discos")
     }
+    
     novoDisco = document.createElement('div')
     novoDisco.classList.add('disco')
-    novoDisco.classList.add('bolinhaVermelha')
+    jogadorAtual(novoDisco)
     linhaAtual.appendChild(novoDisco)
     
     //FOSTER
-    if (vezDoVermelho === true){
-        
+    if (vezDoVermelho === true){    
         tabelaArray[this.id].push('Red')
+    
     } else {
         tabelaArray[this.id].push('Black')
     }
     
     condicaoVitoriaVestical(linhaAtual)
     diagonalSubindo(event)
-    alternaJogador(novoDisco)
+    alternaJogador()
 }
 
 //DANIEL-alternativa de função para limitar quantidade:
@@ -158,8 +162,6 @@ const diagonalDescendo = event => {
 
 // ALLAN
 
-// Alterna jogador
-
 // CRIANDO LOCAL COM O TEXTO DA VEZ DO JOGADOR
 const body = document.getElementsByTagName('BODY')[0]
 const blocoVezdoJogador = document.createElement('div')
@@ -168,77 +170,53 @@ blocoVezdoJogador.classList.add('blocoVezdoJogadorVermelho')
 blocoVezdoJogador.innerText = 'Vez do jogador vermelho'
 body.appendChild(blocoVezdoJogador)
 
-let vezDoVermelho = true // variavel que dirá se é a vez do jogador vermelho
-
-function alternaJogador(bolinhaCriada) { // a cada jogada será chamada essa função que intercalará a vez do jogador
-    if (vezDoVermelho === false) {
-        vezDoVermelho = true
+function jogadorAtual(bolinhaCriada) { // a cada jogada será chamada essa função que intercalará a vez do jogador
+    if (vezDoVermelho === true) {
         blocoVezdoJogador.classList.remove('blocoVezdoJogadorPreto')
         blocoVezdoJogador.classList.add('blocoVezdoJogadorVermelho')
         blocoVezdoJogador.innerText = 'Vez do jogador vermelho'
-        bolinhaCriada.classList.remove('bolinhaVermelha') // exemplo
-        bolinhaCriada.classList.add('bolinhaPreta') // exemplo
+        bolinhaCriada.classList.add('bolinhaVermelha') // exemplo
 
     } else {
-        vezDoVermelho = false
         blocoVezdoJogador.classList.remove('blocoVezdoJogadorVermelho')
         blocoVezdoJogador.classList.add('blocoVezdoJogadorPreto')
         blocoVezdoJogador.innerText = 'Vez do jogador preto'
-        bolinhaCriada.classList.remove('bolinhaPreta') // exemplo
-        bolinhaCriada.classList.add('bolinhaVermelha') // exemplo
-
+        bolinhaCriada.classList.add('bolinhaPreta') // exemplo
     }
-
-    return vezDoVermelho // retorno da vez do jogador
-}
-
-// function vitoria() {
-//     let jogador
-//     if (vezDoVermelho === false) {
-//         jogador = 'Vermelho'
-//     } else {
-//         jogador = 'Preto'
-//     }
-
-//     body.innerHTML = ''
-
-//     const blocoResultado = document.createElement('div')
-//     blocoResultado.classList.add('blocoResultado')
     
-//     const texto = document.createElement('h2')
-//     texto.classList.add('textoResultado')
-//     texto.innerHTML = `O jogador ${jogador} venceu!`
-//     blocoResultado.appendChild(texto)
-
-//     const botaoReiniciar = document.createElement('button')
-//     botaoReiniciar.classList.add('botaoReiniciar')
-//     botaoReiniciar.innerText = 'Reiniciar Jogo'
-//     body.appendChild(botaoReiniciar)
-
-//     body.appendChild(blocoResultado)
-// }
+    return vezDoVermelho
+}
+function alternaJogador() {
+    if (vezDoVermelho === false) {
+        vezDoVermelho = true
+    
+    } else {
+        vezDoVermelho = false
+    }
+    
+    return vezDoVermelho
+}
 
 function condicaoVitoriaVestical(colunaClicada) {
     if ( colunaClicada.childElementCount > 3 ) {
         const filhosColuna = colunaClicada.childNodes
         let contador = 0
+        
         for (let index = 1; index < 4; index++) {
-            if (filhosColuna[filhosColuna.length - index].className !== filhosColuna[filhosColuna.length - index - 1].className) {
-                continue
-            } else {
+            if (filhosColuna[filhosColuna.length - index].className === filhosColuna[filhosColuna.length - index - 1].className) {
                 contador++
-                if (contador >= 3) {
-                    console.log('VITÓRIA')
-                    return true
-                }
-            }
+             }
+        }
+        
+        if (contador >= 3) {
+            console.log('VITÓRIA')
+            return true
         }
     }
     return false
 }
 
-//  EVENTO TECLA NUMÉRICA DE 1 A 7
-document.addEventListener('keydown', (event) => {
+document.addEventListener('keydown', (event) => { //  EVENTO TECLA NUMÉRICA DE 1 A 7
     const keyName = event.key - 1
     let cilindro = document.querySelectorAll('.coluna')[keyName]
    
@@ -258,7 +236,7 @@ function addDiscoTeclado(cilindro, posicaoCilindro) {
     } else {
         novoDisco = document.createElement('div')
         novoDisco.classList.add('disco')
-        alternaJogador(novoDisco)
+        jogadorAtual(novoDisco)
         cilindro.appendChild(novoDisco)
     
         //FOSTER
