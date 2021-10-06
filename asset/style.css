@@ -1,88 +1,95 @@
 #tabelaJogo {
-    
-    border: 2px solid;
-    height: 210px;
-    display: flex;
-    flex-wrap: wrap;
-    box-sizing: border-box;
-  }
-  
-  .coluna {
-    width: 35px;
-    margin: 0px 3px;
-    background: #0470ce7c;
-    background: -moz-linear-gradient(left, #0470ce7c 0%, #a4a4a467 50%, #0470ce7c 100%);
-    background: -webkit-linear-gradient(left, #0470ce7c 0%, #a4a4a467 50%, #0470ce7c 100%);
-    background: linear-gradient(to right, #0470ce7c 0%, #a4a4a467 50%, #0470ce7c 100%);
-    display: flex;
-    align-items: center;
-    flex-direction: column-reverse;
-  }
-  
-  
-  /*RÔMULO*/
-  .disco {
-  border-radius: 50%;
-  height: 30px;
-  width: 30px;
-  z-index: -1;
-  }
-  
-  
-  /*  <allan>  */
-  body {
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-sizing: border-box;
-  }
-  #blocoVezdoJogador {
-    box-sizing: border-box;
+  border: 2px solid;
+  height: 210px;
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.coluna {
+  width: 35px;
+  margin: 0px 3px;
+  background: #0470ce7c;
+  background: -moz-linear-gradient(left, #0470ce7c 0%, #a4a4a467 50%, #0470ce7c 100%);
+  background: -webkit-linear-gradient(left, #0470ce7c 0%, #a4a4a467 50%, #0470ce7c 100%);
+  background: linear-gradient(to right, #0470ce7c 0%, #a4a4a467 50%, #0470ce7c 100%);
+  display: flex;
+  align-items: center;
+  flex-direction: column-reverse;
+}
+/*  <rômulo>*/
+.disco {
+border-radius: 50%;
+height: 30px;
+width: 30px;
+z-index: -1;
+animation: fall 0.6s ease-out;
+}
+/*  </rômulo>*/
+
+/*  <allan>  */
+body {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+#blocoVezdoJogador {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  max-width: 1200px;
+  width: 70%;
+  height: 80px;
+  color: white;
+  font-size: 22px;
+  font-weight: 700;
+  font-family: Arial, Helvetica, sans-serif;
+  border-radius: 5px;
+  border: 2px dashed white;
+  margin: 10px 0;
+}
+.blocoVezdoJogadorVermelho {
+  background-color: rgb(184, 54, 54);
+}
+.blocoVezdoJogadorPreto {
+  background-color: rgb(27, 27, 27);
+}
+.bolinhaPreta {
+  background-color: rgb(27, 27, 27);
+}
+.bolinhaVermelha {
+  background-color: rgb(184, 54, 54);
+}
+.blocoResultado {
+    min-width: 200px;
+    max-width: 500px;
+    width: 80%;
+    height: 200px;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    max-width: 1200px;
-    width: 70%;
-    height: 80px;
+    background-color: #0000e2;
     color: white;
-    font-size: 22px;
+}
+.textoResultado {
+    font-size: 25px;
     font-weight: 700;
     font-family: Arial, Helvetica, sans-serif;
-    border-radius: 5px;
-    border: 2px dashed white;
-    margin: 10px 0;
-  }
-  .blocoVezdoJogadorVermelho {
-    background-color: rgb(184, 54, 54);
-  }
-  .blocoVezdoJogadorPreto {
-    background-color: rgb(27, 27, 27);
-  }
-  .bolinhaPreta {
-    background-color: rgb(27, 27, 27);
-  }
-  .bolinhaVermelha {
-    background-color: rgb(184, 54, 54);
-  }
-  .blocoResultado {
-      min-width: 200px;
-      max-width: 500px;
-      width: 80%;
-      height: 200px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      background-color: #0000e2;
-      color: white;
-  }
-  .textoResultado {
-      font-size: 25px;
-      font-weight: 700;
-      font-family: Arial, Helvetica, sans-serif;
-      margin-bottom: 30px;
-  }
-  /*  </allan>    */
+    margin-bottom: 30px;
+}
+/*  </allan>    */
+
+/* <daniel */
+@keyframes fall {
+    0% { transform: translateY(-200px);}
+    95% { transform: translateY(0px);}
+    97% { transform: translateY(-5px);}
+    100% { transform: translateY(0px);}
+}
+/*  </daniel> */
