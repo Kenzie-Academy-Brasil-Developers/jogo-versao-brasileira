@@ -46,8 +46,9 @@ function addDisco(event) {
         tabelaArray[this.id].push('Black')
     }
     
-    condicaoVitoriaVestical(linhaAtual)
+    condicaoVitoriaVertical(event)
     diagonalSubindo(event)
+    diagonalDescendo(event)
     alternaJogador(novoDisco)
 }
 
@@ -72,32 +73,32 @@ const limitaQuantidade = event => {
 //     }
 // }
 
-//FUNÇÃO DE VERIFICAÇÃO DE COMBINAÇÃO DIAGONAL PARA BAIXO
-let possibilidades = [];
-let combinacaoDiscos = 4;
-const diagonalBaixo = () => {
-    for (let i = 0; i < 4; i++) {
-      for (let r = 0; r < 3; r++) {
-        let combinacao = [];
-        for (let j = 0; j < combinacaoDiscos; j++) {
-          combinacao.push(tabelaArray[i + j][j + r]);
-        }
-        possibilidades.push(combinacao);
-      }
-    }
-  };
-  //FUNÇÃO DE VERIFICAÇÃO DE COMBINAÇÃO DIAGONAL PARA CIMA
-  const diagonalCima = () => {
-    for (let i = 3; i < 7; i++) {
-      for (let r = 0; r < 3; r++) {
-        let combinacao = [];
-        for (let j = 0; j < combinacaoDiscos; j++) {
-          combinacaoDiscos.push(tabelaArray[i - j][j + r]);
-        }
-        possibilidades.push(combinacao);
-      }
-    }
-  };
+// //FUNÇÃO DE VERIFICAÇÃO DE COMBINAÇÃO DIAGONAL PARA BAIXO
+// let possibilidades = [];
+// let combinacaoDiscos = 4;
+// const diagonalBaixo = () => {
+//     for (let i = 0; i < 4; i++) {
+//       for (let r = 0; r < 3; r++) {
+//         let combinacao = [];
+//         for (let j = 0; j < combinacaoDiscos; j++) {
+//           combinacao.push(tabelaArray[i + j][j + r]);
+//         }
+//         possibilidades.push(combinacao);
+//       }
+//     }
+//   };
+//   //FUNÇÃO DE VERIFICAÇÃO DE COMBINAÇÃO DIAGONAL PARA CIMA
+//   const diagonalCima = () => {
+//     for (let i = 3; i < 7; i++) {
+//       for (let r = 0; r < 3; r++) {
+//         let combinacao = [];
+//         for (let j = 0; j < combinacaoDiscos; j++) {
+//           combinacaoDiscos.push(tabelaArray[i - j][j + r]);
+//         }
+//         possibilidades.push(combinacao);
+//       }
+//     }
+//   };
 
 //DANIEL: Função alternativa para diagonal
 const diagonalSubindo = event => {
@@ -218,24 +219,46 @@ function alternaJogador(bolinhaCriada) { // a cada jogada será chamada essa fun
 //     body.appendChild(blocoResultado)
 // }
 
-function condicaoVitoriaVestical(colunaClicada) {
-    if ( colunaClicada.childElementCount > 3 ) {
-        const filhosColuna = colunaClicada.childNodes
-        let contador = 0
-        for (let index = 1; index < 4; index++) {
-            if (filhosColuna[filhosColuna.length - index].className !== filhosColuna[filhosColuna.length - index - 1].className) {
-                continue
-            } else {
+// function condicaoVitoriaVertical(colunaClicada) {
+//     if ( colunaClicada.childElementCount > 3 ) {
+//         const filhosColuna = colunaClicada.childNodes
+//         console.log(filhosColuna)
+//         let contador = 0
+//         for (let index = 1; index < 4; index++) {
+//             if (filhosColuna[filhosColuna.length - index].className !== filhosColuna[filhosColuna.length - index - 1].className) {
+//                 continue
+//             } else {
+//                 contador++
+//                 if (contador >= 3) {
+//                     console.log('VITÓRIA')
+//                     return true
+//                 }
+//             }
+//         }
+//     }
+//     return false
+// }
+
+// CORREÇÃO CONDIÇÃO VITÓRIA VERTICAL E REFATORAÇÃO - DANIEL
+function condicaoVitoriaVertical(event) {
+    const col = Number(event.target.id)
+    const lin = tabelaArray[event.target.id].length-1
+    console.log(lin)
+    if (tabelaArray[lin+1].length > 3){
+        let contador = 1
+        for (let index = 1; index <= 3; index++) {
+            if (tabelaArray[col][lin] === tabelaArray[col][lin-index]) {
                 contador++
-                if (contador >= 3) {
-                    console.log('VITÓRIA')
-                    return true
-                }
+            } else {
+                break
             }
         }
+        console.log(contador===4)
+        return contador===4
     }
     return false
 }
+
 
 //  EVENTO TECLA NUMÉRICA DE 1 A 7
 document.addEventListener('keydown', (event) => {
@@ -269,7 +292,7 @@ function addDiscoTeclado(cilindro, posicaoCilindro) {
             tabelaArray[posicaoCilindro].push('Black')
         }
     
-        condicaoVitoriaVestical(cilindro)
+        condicaoVitoriaVertical(cilindro)
 
     }
 }
