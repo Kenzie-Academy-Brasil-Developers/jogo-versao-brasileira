@@ -50,8 +50,9 @@ function addDisco(event) {
         tabelaArray[this.id].push('Black')
     }
     
-    condicaoVitoriaVestical(linhaAtual)
+    condicaoVitoriaVertical(event)
     diagonalSubindo(event)
+    diagonalDescendo(event)
     alternaJogador()
 }
 
@@ -76,32 +77,32 @@ const limitaQuantidade = event => {
 //     }
 // }
 
-//FUNÇÃO DE VERIFICAÇÃO DE COMBINAÇÃO DIAGONAL PARA BAIXO
-let possibilidades = [];
-let combinacaoDiscos = 4;
-const diagonalBaixo = () => {
-    for (let i = 0; i < 4; i++) {
-      for (let r = 0; r < 3; r++) {
-        let combinacao = [];
-        for (let j = 0; j < combinacaoDiscos; j++) {
-          combinacao.push(tabelaArray[i + j][j + r]);
-        }
-        possibilidades.push(combinacao);
-      }
-    }
-  };
-  //FUNÇÃO DE VERIFICAÇÃO DE COMBINAÇÃO DIAGONAL PARA CIMA
-  const diagonalCima = () => {
-    for (let i = 3; i < 7; i++) {
-      for (let r = 0; r < 3; r++) {
-        let combinacao = [];
-        for (let j = 0; j < combinacaoDiscos; j++) {
-          combinacaoDiscos.push(tabelaArray[i - j][j + r]);
-        }
-        possibilidades.push(combinacao);
-      }
-    }
-  };
+// //FUNÇÃO DE VERIFICAÇÃO DE COMBINAÇÃO DIAGONAL PARA BAIXO
+// let possibilidades = [];
+// let combinacaoDiscos = 4;
+// const diagonalBaixo = () => {
+//     for (let i = 0; i < 4; i++) {
+//       for (let r = 0; r < 3; r++) {
+//         let combinacao = [];
+//         for (let j = 0; j < combinacaoDiscos; j++) {
+//           combinacao.push(tabelaArray[i + j][j + r]);
+//         }
+//         possibilidades.push(combinacao);
+//       }
+//     }
+//   };
+//   //FUNÇÃO DE VERIFICAÇÃO DE COMBINAÇÃO DIAGONAL PARA CIMA
+//   const diagonalCima = () => {
+//     for (let i = 3; i < 7; i++) {
+//       for (let r = 0; r < 3; r++) {
+//         let combinacao = [];
+//         for (let j = 0; j < combinacaoDiscos; j++) {
+//           combinacaoDiscos.push(tabelaArray[i - j][j + r]);
+//         }
+//         possibilidades.push(combinacao);
+//       }
+//     }
+//   };
 
 //DANIEL: Função alternativa para diagonal
 const diagonalSubindo = event => {
@@ -212,6 +213,8 @@ function condicaoVitoriaVestical(colunaClicada) {
             console.log('VITÓRIA')
             return true
         }
+        console.log(contador===4)
+        return contador===4
     }
     return false
 }
@@ -247,7 +250,7 @@ function addDiscoTeclado(cilindro, posicaoCilindro) {
             tabelaArray[posicaoCilindro].push('Black')
         }
     
-        condicaoVitoriaVestical(cilindro)
+        condicaoVitoriaVertical(cilindro)
 
     }
 }
