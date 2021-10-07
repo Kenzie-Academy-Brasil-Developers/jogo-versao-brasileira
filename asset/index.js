@@ -240,15 +240,8 @@ body.appendChild(blocoVezdoJogador)
 
 function jogadorAtual(bolinhaCriada) { // a cada jogada será chamada essa função que intercalará a vez do jogador
     if (vezDoVermelho === true) {
-        blocoVezdoJogador.classList.remove('blocoVezdoJogadorPreto')
-        blocoVezdoJogador.classList.add('blocoVezdoJogadorVermelho')
-        blocoVezdoJogador.innerText = 'Vez do jogador vermelho'
         bolinhaCriada.classList.add('bolinhaVermelha') // exemplo
-
     } else {
-        blocoVezdoJogador.classList.remove('blocoVezdoJogadorVermelho')
-        blocoVezdoJogador.classList.add('blocoVezdoJogadorPreto')
-        blocoVezdoJogador.innerText = 'Vez do jogador preto'
         bolinhaCriada.classList.add('bolinhaPreta') // exemplo
     }
 
@@ -258,8 +251,14 @@ function jogadorAtual(bolinhaCriada) { // a cada jogada será chamada essa funç
 function alternaJogador() {
     if (vezDoVermelho === true) {
         vezDoVermelho = false
+        blocoVezdoJogador.classList.remove('blocoVezdoJogadorVermelho')
+        blocoVezdoJogador.classList.add('blocoVezdoJogadorPreto')
+        blocoVezdoJogador.innerText = 'Vez do jogador preto'
     } else {
         vezDoVermelho = true
+        blocoVezdoJogador.classList.remove('blocoVezdoJogadorPreto')
+        blocoVezdoJogador.classList.add('blocoVezdoJogadorVermelho')
+        blocoVezdoJogador.innerText = 'Vez do jogador vermelho'
     }
 }
 
