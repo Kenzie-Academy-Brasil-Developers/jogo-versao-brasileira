@@ -13,6 +13,7 @@ const iniciarJogo = () => {
     aparecertabuleiro()
     }
 function aparecertabuleiro() {
+    game.style.display = 'block';
 }
 function hiddenInstrutions() {
   instrutions.classList.remove("instruções");

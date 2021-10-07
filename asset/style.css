@@ -1,3 +1,6 @@
+.game-hidden{
+  display: none;
+}
 #tabelaJogo {
   border: 2px solid;
   height: 210px;
@@ -104,6 +107,7 @@ button {
 /*  <allan>  */
 body {
   background-image: url(./img/star-wars-nawpic-2.png);
+  background-position: center;
   background-size: cover;
   width: 100vw;
   height: 100vh;
