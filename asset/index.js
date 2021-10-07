@@ -156,7 +156,7 @@ function horizontal(event) {
 //DANIEL: Função alternativa para diagonal
 const diagonalSubindo = event => {
     let col = Number(event.target.id)
-    let lin = event.target.querySelectorAll('.disco').length-1
+    let lin = tabelaArray[event.target.id].length-1
     let count = 1;
     for (let i = 1; i <= 3; i++){
         if(col+i>6||lin+i>5) {
@@ -183,7 +183,7 @@ const diagonalSubindo = event => {
 
 const diagonalDescendo = event => {
     let col = Number(event.target.id)
-    let lin = event.target.querySelectorAll('.disco').length-1
+    let lin = tabelaArray[event.target.id].length-1
     let count = 1;
     for (let i = 1; i <= 3; i++){
         if(col+i>6||lin-i<0) {
