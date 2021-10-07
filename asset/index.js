@@ -1,33 +1,21 @@
 //FOSTER
-const tabelaArray = [
-    [],
-    [], 
-    [],
-    [],
-    [],
-    [],
-    [],
-]
+let tabelaArray = []
 
-for (let i = 0; i <= 6; i ++){
-    let tabela = document.getElementById('tabelaJogo')
-    let addDiv = document.createElement('div')
-    tabela.appendChild(addDiv);
-    addDiv.classList.add('coluna')
-    addDiv.setAttribute("id", i)
-}
+// let tabela
+// let addDiv
+let colunas
+let novoDisco
 
-let colunas = document.querySelectorAll('.coluna')
+const body = document.getElementsByTagName('body')[0]
+let blocoVezdoJogador
+let vezDoVermelho
 
-colunas.forEach(coluna => {
-    coluna.addEventListener("click", addDisco)
-});
+inicio()
 
-// let col = 0;
 //ROMULO
 
 //Função de criação de novo disco
-let novoDisco;
+
 function addDisco(event) {
     let linhaAtual = document.getElementById(event.target.id)
     if(limitaQuantidade(event)===false){
@@ -215,15 +203,6 @@ const diagonalDescendo = event => {
 // Alterna jogador
 
 // CRIANDO LOCAL COM O TEXTO DA VEZ DO JOGADOR
-const body = document.getElementsByTagName('BODY')[0]
-const blocoVezdoJogador = document.createElement('div')
-blocoVezdoJogador.id = 'blocoVezdoJogador'
-blocoVezdoJogador.classList.add('blocoVezdoJogadorVermelho')
-blocoVezdoJogador.innerText = 'Vez do jogador vermelho'
-body.appendChild(blocoVezdoJogador)
-
-let vezDoVermelho = true // variavel que dirá se é a vez do jogador vermelho
-
 function alternaJogador(bolinhaCriada) { // a cada jogada será chamada essa função que intercalará a vez do jogador
     if (vezDoVermelho === false) {
         vezDoVermelho = true
@@ -267,6 +246,7 @@ function vitoria() {
     const botaoReiniciar = document.createElement('button')
     botaoReiniciar.classList.add('botaoReiniciar')
     botaoReiniciar.innerText = 'Reiniciar Jogo'
+    botaoReiniciar.addEventListener('click', inicio)
     body.appendChild(botaoReiniciar)
 
     body.appendChild(blocoResultado)
@@ -286,6 +266,7 @@ function empate() {
     const botaoReiniciar = document.createElement('button')
     botaoReiniciar.classList.add('botaoReiniciar')
     botaoReiniciar.innerText = 'Reiniciar Jogo'
+    botaoReiniciar.addEventListener('click', inicio)
     body.appendChild(botaoReiniciar)
 
     body.appendChild(resultEmpate)
@@ -378,3 +359,44 @@ function consultaDiscos() {
         
     }
 }
+
+function inicio() {
+    body.innerText = ''
+    let tabela = document.createElement('div')
+    tabela.id = 'tabelaJogo'
+
+    tabelaArray = [
+        [],
+        [], 
+        [],
+        [],
+        [],
+        [],
+        [],
+    ]
+    
+
+    for (let i = 0; i <= 6; i ++){
+        let addDiv = document.createElement('div')
+        tabela.appendChild(addDiv);
+        addDiv.classList.add('coluna')
+        addDiv.setAttribute("id", i)
+    }
+
+    body.appendChild(tabela)
+    
+    colunas = document.querySelectorAll('.coluna')
+
+    colunas.forEach(coluna => {
+        coluna.addEventListener("click", addDisco)
+    });
+
+    blocoVezdoJogador = document.createElement('div')
+    blocoVezdoJogador.id = 'blocoVezdoJogador'
+    blocoVezdoJogador.classList.add('blocoVezdoJogadorVermelho')
+    blocoVezdoJogador.innerText = 'Vez do jogador vermelho'
+    
+    body.appendChild(blocoVezdoJogador)
+    
+    vezDoVermelho = true // variavel que dirá se é a vez do jogador vermelho
+} 
