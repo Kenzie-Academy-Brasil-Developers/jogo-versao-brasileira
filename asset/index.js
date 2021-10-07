@@ -1,5 +1,5 @@
 //FOSTER
-const tabelaArray = [
+let tabelaArray = [
     [],
     [], 
     [],
@@ -9,8 +9,8 @@ const tabelaArray = [
     [],
 ]
 
+let tabela = document.getElementById('tabelaJogo')
 for (let i = 0; i <= 6; i ++){
-    let tabela = document.getElementById('tabelaJogo')
     let addDiv = document.createElement('div')
     tabela.appendChild(addDiv);
     addDiv.classList.add('coluna')
@@ -28,6 +28,8 @@ colunas.forEach(coluna => {
 
 //Função de criação de novo disco
 let novoDisco;
+let vezDoVermelho = true // variavel que dirá se é a vez do jogador vermelho
+
 function addDisco(event) {
     let linhaAtual = document.getElementById(event.target.id)
     if(limitaQuantidade(event)===false){
@@ -35,7 +37,7 @@ function addDisco(event) {
     }
     novoDisco = document.createElement('div')
     novoDisco.classList.add('disco')
-    novoDisco.classList.add('bolinhaVermelha')
+    jogadorAtual(novoDisco)
     linhaAtual.appendChild(novoDisco)
     let jogador = true
     //FOSTER
@@ -74,7 +76,8 @@ function addDisco(event) {
         empate()
     }
     
-    alternaJogador(novoDisco)
+    alternaJogador()
+    console.log(vezDoVermelho)
 }
 
 //DANIEL-alternativa de função para limitar quantidade:
@@ -222,29 +225,31 @@ blocoVezdoJogador.classList.add('blocoVezdoJogadorVermelho')
 blocoVezdoJogador.innerText = 'Vez do jogador vermelho'
 body.appendChild(blocoVezdoJogador)
 
-let vezDoVermelho = true // variavel que dirá se é a vez do jogador vermelho
-
-function alternaJogador(bolinhaCriada) { // a cada jogada será chamada essa função que intercalará a vez do jogador
-    if (vezDoVermelho === false) {
-        vezDoVermelho = true
+function jogadorAtual(bolinhaCriada) { // a cada jogada será chamada essa função que intercalará a vez do jogador
+    if (vezDoVermelho === true) {
         blocoVezdoJogador.classList.remove('blocoVezdoJogadorPreto')
         blocoVezdoJogador.classList.add('blocoVezdoJogadorVermelho')
         blocoVezdoJogador.innerText = 'Vez do jogador vermelho'
-        bolinhaCriada.classList.remove('bolinhaVermelha') // exemplo
-        bolinhaCriada.classList.add('bolinhaPreta') // exemplo
+        bolinhaCriada.classList.add('bolinhaVermelha') // exemplo
 
     } else {
-        vezDoVermelho = false
         blocoVezdoJogador.classList.remove('blocoVezdoJogadorVermelho')
         blocoVezdoJogador.classList.add('blocoVezdoJogadorPreto')
         blocoVezdoJogador.innerText = 'Vez do jogador preto'
-        bolinhaCriada.classList.remove('bolinhaPreta') // exemplo
-        bolinhaCriada.classList.add('bolinhaVermelha') // exemplo
-
+        bolinhaCriada.classList.add('bolinhaPreta') // exemplo
     }
 
     return vezDoVermelho // retorno da vez do jogador
 }
+
+function alternaJogador() {
+    if (vezDoVermelho === true) {
+        vezDoVermelho = false
+    } else {
+        vezDoVermelho = true
+    }
+}
+
 
 function vitoria() {
     let jogador
@@ -267,6 +272,7 @@ function vitoria() {
     const botaoReiniciar = document.createElement('button')
     botaoReiniciar.classList.add('botaoReiniciar')
     botaoReiniciar.innerText = 'Reiniciar Jogo'
+    botaoReiniciar.addEventListener('click', reinicia)
     body.appendChild(botaoReiniciar)
 
     body.appendChild(blocoResultado)
@@ -286,6 +292,7 @@ function empate() {
     const botaoReiniciar = document.createElement('button')
     botaoReiniciar.classList.add('botaoReiniciar')
     botaoReiniciar.innerText = 'Reiniciar Jogo'
+    botaoReiniciar.addEventListener('click', reinicia)
     body.appendChild(botaoReiniciar)
 
     body.appendChild(resultEmpate)
@@ -341,6 +348,8 @@ document.addEventListener('keydown', (event) => {
     } else {
         console.log('Essa tecla não está configurada')
     }
+
+    alternaJogador() //bugado por algum motivo
 })
 
 function addDiscoTeclado(cilindro, posicaoCilindro) {
@@ -349,21 +358,21 @@ function addDiscoTeclado(cilindro, posicaoCilindro) {
         console.log('você não pode adicionar aqui')
    
     } else {
-        novoDisco = document.createElement('div')
-        novoDisco.classList.add('disco')
-        alternaJogador(novoDisco)
-        cilindro.appendChild(novoDisco)
+        let novoDisco_T = document.createElement('div')
+        novoDisco_T.classList.add('disco')
+        jogadorAtual(novoDisco_T)
+        console.log(novoDisco_T)
+        console.log(vezDoVermelho)
+        cilindro.appendChild(novoDisco_T)
     
         //FOSTER
         if (vezDoVermelho === true){
-            
             tabelaArray[posicaoCilindro].push('Red')
         } else {
             tabelaArray[posicaoCilindro].push('Black')
         }
     
         condicaoVitoriaVertical(cilindro)
-
     }
 }
 
@@ -377,4 +386,28 @@ function consultaDiscos() {
         return true
         
     }
+}
+
+function reinicia() {
+    body.innerText = ''
+
+
+    tabelaArray = [
+        [],
+        [], 
+        [],
+        [],
+        [],
+        [],
+        [],
+    ]
+
+    vezDoVermelho = true
+
+    colunas.forEach(coluna => {
+        coluna.innerText = ''
+    })
+
+    body.appendChild(tabela)
+    body.appendChild(blocoVezdoJogador)
 }
