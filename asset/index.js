@@ -13,7 +13,7 @@ for (let i = 0; i <= 6; i ++){
     let tabela = document.getElementById('tabelaJogo')
     let addDiv = document.createElement('div')
     tabela.appendChild(addDiv);
-    addDiv.className='coluna'
+    addDiv.classList.add('coluna')
     addDiv.setAttribute("id", i)
 }
 
@@ -23,7 +23,7 @@ colunas.forEach(coluna => {
     coluna.addEventListener("click", addDisco)
 });
 
-let col = 0;
+// let col = 0;
 //ROMULO
 
 //Função de criação de novo disco
@@ -69,7 +69,9 @@ function addDisco(event) {
     diagonalSubindo(event)
     diagonalDescendo(event)
     if (horizontal(event) === true || condicaoVitoriaVertical(event) === true || diagonalSubindo(event) === true || diagonalDescendo(event) === true){
-        alert('Vitória do jogador: ' + jogador)
+        vitoria()
+    } else if (consultaDiscos() === true){
+        empate()
     }
     
     alternaJogador(novoDisco)
@@ -92,7 +94,7 @@ function horizontal(event) {
         && tabelaArray[0][posicao] === tabelaArray[1][posicao]
         && tabelaArray[0][posicao] === tabelaArray[2][posicao]
         && tabelaArray[0][posicao] === tabelaArray[3][posicao]){
-      return true
+        return true
     } else if (tabelaArray[1][posicao] !== undefined 
         && tabelaArray[1][posicao] === tabelaArray[2][posicao] 
         && tabelaArray[1][posicao] === tabelaArray[3][posicao] 
@@ -244,31 +246,50 @@ function alternaJogador(bolinhaCriada) { // a cada jogada será chamada essa fun
     return vezDoVermelho // retorno da vez do jogador
 }
 
-// function vitoria() {
-//     let jogador
-//     if (vezDoVermelho === false) {
-//         jogador = 'Vermelho'
-//     } else {
-//         jogador = 'Preto'
-//     }
+function vitoria() {
+    let jogador
+    if (vezDoVermelho === true) {
+        jogador = 'Vermelho'
+    } else {
+        jogador = 'Preto'
+    }
 
-//     body.innerHTML = ''
+    body.innerHTML = ''
 
-//     const blocoResultado = document.createElement('div')
-//     blocoResultado.classList.add('blocoResultado')
+    const blocoResultado = document.createElement('div')
+    blocoResultado.classList.add('blocoResultado')
     
-//     const texto = document.createElement('h2')
-//     texto.classList.add('textoResultado')
-//     texto.innerHTML = `O jogador ${jogador} venceu!`
-//     blocoResultado.appendChild(texto)
+    const texto = document.createElement('h2')
+    texto.classList.add('textoResultado')
+    texto.innerHTML = `O jogador ${jogador} venceu!`
+    blocoResultado.appendChild(texto)
 
-//     const botaoReiniciar = document.createElement('button')
-//     botaoReiniciar.classList.add('botaoReiniciar')
-//     botaoReiniciar.innerText = 'Reiniciar Jogo'
-//     body.appendChild(botaoReiniciar)
+    const botaoReiniciar = document.createElement('button')
+    botaoReiniciar.classList.add('botaoReiniciar')
+    botaoReiniciar.innerText = 'Reiniciar Jogo'
+    body.appendChild(botaoReiniciar)
 
-//     body.appendChild(blocoResultado)
-// }
+    body.appendChild(blocoResultado)
+}
+
+function empate() {
+    body.innerHTML = ''
+
+    const resultEmpate = document.createElement('div')
+    resultEmpate.classList.add('resultEmpate')
+    
+    const texto = document.createElement('h2')
+    texto.classList.add('textoEmpate')
+    texto.innerHTML = `O jogo empatou. Reinicie a partida!`
+    resultEmpate.appendChild(texto)
+
+    const botaoReiniciar = document.createElement('button')
+    botaoReiniciar.classList.add('botaoReiniciar')
+    botaoReiniciar.innerText = 'Reiniciar Jogo'
+    body.appendChild(botaoReiniciar)
+
+    body.appendChild(resultEmpate)
+}
 
 // function condicaoVitoriaVertical(colunaClicada) {
 //     if ( colunaClicada.childElementCount > 3 ) {
@@ -343,5 +364,17 @@ function addDiscoTeclado(cilindro, posicaoCilindro) {
     
         condicaoVitoriaVertical(cilindro)
 
+    }
+}
+
+function consultaDiscos() {
+    let cont = 0;
+    for (let i = 0; i <= 6;i++)
+    if (tabelaArray[i].length === 6){
+        cont++
+    } 
+    if (cont === 7){
+        return true
+        
     }
 }
