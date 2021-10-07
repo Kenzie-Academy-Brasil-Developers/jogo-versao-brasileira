@@ -21,22 +21,22 @@ function hiddenInstrutions() {
 }
 btnStart.addEventListener('click', iniciarJogo);
 //FOSTER
-const tabelaArray = [
-  [],
-  [], 
-  [],
-  [],
-  [],
-  [],
-  [],
+let tabelaArray = [
+    [],
+    [], 
+    [],
+    [],
+    [],
+    [],
+    [],
 ]
 
+let tabela = document.getElementById('tabelaJogo')
 for (let i = 0; i <= 6; i ++){
-  let tabela = document.getElementById('tabelaJogo')
-  let addDiv = document.createElement('div')
-  tabela.appendChild(addDiv);
-  addDiv.className='coluna'
-  addDiv.setAttribute("id", i)
+    let addDiv = document.createElement('div')
+    tabela.appendChild(addDiv);
+    addDiv.classList.add('coluna')
+    addDiv.setAttribute("id", i)
 }
 
 let colunas = document.querySelectorAll('.coluna')
@@ -45,11 +45,13 @@ colunas.forEach(coluna => {
   coluna.addEventListener("click", addDisco)
 });
 
-let col = 0;
+// let col = 0;
 //ROMULO
 
 //Função de criação de novo disco
 let novoDisco;
+let vezDoVermelho = true // variavel que dirá se é a vez do jogador vermelho
+
 function addDisco(event) {
     let linhaAtual = document.getElementById(event.target.id)
     if(limitaQuantidade(event)===false){
@@ -57,7 +59,7 @@ function addDisco(event) {
     }
     novoDisco = document.createElement('div')
     novoDisco.classList.add('disco')
-    novoDisco.classList.add('bolinhaVermelha')
+    jogadorAtual(novoDisco)
     linhaAtual.appendChild(novoDisco)
     let jogador = true
     //FOSTER
@@ -69,32 +71,35 @@ function addDisco(event) {
         tabelaArray[this.id].push('Black')
     }
 
-    if (this.id == 0){
-      col = 0;
-    } else if (this.id == 1){
-      col = 1
-    } else if (this.id == 2){
-      col = 2
-    } else if (this.id == 3){
-      col = 3
-    } else if (this.id == 4){
-      col = 4
-    } else if (this.id == 5){
-      col = 5
-    }  else if (this.id == 6){
-      col = 6
-    }
+    // if (this.id == 0){
+    //   col = 0;
+    // } else if (this.id == 1){
+    //   col = 1
+    // } else if (this.id == 2){
+    //   col = 2
+    // } else if (this.id == 3){
+    //   col = 3
+    // } else if (this.id == 4){
+    //   col = 4
+    // } else if (this.id == 5){
+    //   col = 5
+    // }  else if (this.id == 6){
+    //   col = 6
+    // }
 
-
-    horizontal()
+    //DANIEL - ADICIONADO PARAMETRO PARA A HORIZONTAL TAMBÉM
+    horizontal(event)
     condicaoVitoriaVertical(event)
     diagonalSubindo(event)
     diagonalDescendo(event)
-    if (horizontal() === true || condicaoVitoriaVertical(event) === true || diagonalSubindo(event) === true || diagonalDescendo(event) === true){
-        alert('Vitória do jogador: ' + jogador)
+    if (horizontal(event) === true || condicaoVitoriaVertical(event) === true || diagonalSubindo(event) === true || diagonalDescendo(event) === true){
+        vitoria()
+    } else if (consultaDiscos() === true){
+        empate()
     }
     
-    alternaJogador(novoDisco)
+    alternaJogador()
+    console.log(vezDoVermelho)
 }
 
 //DANIEL-alternativa de função para limitar quantidade:
@@ -105,15 +110,16 @@ const limitaQuantidade = event => {
     return true
 }
 // FUNÇÃO DE VERIFICAÇÃO DE COMBINAÇÃO HORIZONTAL -- FOSTER
-let posicao;
-function horizontal() {
+function horizontal(event) {
+    let posicao;
+    let col = Number(event.target.id)
     posicao = tabelaArray[col].length-1
        
     if (tabelaArray[0][posicao] !== undefined 
         && tabelaArray[0][posicao] === tabelaArray[1][posicao]
         && tabelaArray[0][posicao] === tabelaArray[2][posicao]
         && tabelaArray[0][posicao] === tabelaArray[3][posicao]){
-      return true
+        return true
     } else if (tabelaArray[1][posicao] !== undefined 
         && tabelaArray[1][posicao] === tabelaArray[2][posicao] 
         && tabelaArray[1][posicao] === tabelaArray[3][posicao] 
@@ -177,7 +183,7 @@ function horizontal() {
 //DANIEL: Função alternativa para diagonal
 const diagonalSubindo = event => {
     let col = Number(event.target.id)
-    let lin = event.target.querySelectorAll('.disco').length-1
+    let lin = tabelaArray[event.target.id].length-1
     let count = 1;
     for (let i = 1; i <= 3; i++){
         if(col+i>6||lin+i>5) {
@@ -204,7 +210,7 @@ const diagonalSubindo = event => {
 
 const diagonalDescendo = event => {
     let col = Number(event.target.id)
-    let lin = event.target.querySelectorAll('.disco').length-1
+    let lin = tabelaArray[event.target.id].length-1
     let count = 1;
     for (let i = 1; i <= 3; i++){
         if(col+i>6||lin-i<0) {
@@ -241,55 +247,78 @@ blocoVezdoJogador.classList.add('blocoVezdoJogadorVermelho')
 blocoVezdoJogador.innerText = 'Vez do jogador vermelho'
 //body.appendChild(blocoVezdoJogador)
 
-let vezDoVermelho = true // variavel que dirá se é a vez do jogador vermelho
+function jogadorAtual(bolinhaCriada) { // a cada jogada será chamada essa função que intercalará a vez do jogador
+    if (vezDoVermelho === true) {
+        blocoVezdoJogador.classList.remove('blocoVezdoJogadorPreto')
+        blocoVezdoJogador.classList.add('blocoVezdoJogadorVermelho')
+        blocoVezdoJogador.innerText = 'Vez do jogador vermelho'
+        bolinhaCriada.classList.add('bolinhaVermelha') // exemplo
 
-function alternaJogador(bolinhaCriada) { // a cada jogada será chamada essa função que intercalará a vez do jogador
-  if (vezDoVermelho === false) {
-      vezDoVermelho = true
-      blocoVezdoJogador.classList.remove('blocoVezdoJogadorPreto')
-      blocoVezdoJogador.classList.add('blocoVezdoJogadorVermelho')
-      blocoVezdoJogador.innerText = 'Vez do jogador vermelho'
-      bolinhaCriada.classList.remove('bolinhaVermelha') // exemplo
-      bolinhaCriada.classList.add('bolinhaPreta') // exemplo
+    } else {
+        blocoVezdoJogador.classList.remove('blocoVezdoJogadorVermelho')
+        blocoVezdoJogador.classList.add('blocoVezdoJogadorPreto')
+        blocoVezdoJogador.innerText = 'Vez do jogador preto'
+        bolinhaCriada.classList.add('bolinhaPreta') // exemplo
+    }
 
-  } else {
-      vezDoVermelho = false
-      blocoVezdoJogador.classList.remove('blocoVezdoJogadorVermelho')
-      blocoVezdoJogador.classList.add('blocoVezdoJogadorPreto')
-      blocoVezdoJogador.innerText = 'Vez do jogador preto'
-      bolinhaCriada.classList.remove('bolinhaPreta') // exemplo
-      bolinhaCriada.classList.add('bolinhaVermelha') // exemplo
-
-  }
-
-  return vezDoVermelho // retorno da vez do jogador
+    return vezDoVermelho // retorno da vez do jogador
 }
 
-// function vitoria() {
-//     let jogador
-//     if (vezDoVermelho === false) {
-//         jogador = 'Vermelho'
-//     } else {
-//         jogador = 'Preto'
-//     }
+function alternaJogador() {
+    if (vezDoVermelho === true) {
+        vezDoVermelho = false
+    } else {
+        vezDoVermelho = true
+    }
+}
 
-//     body.innerHTML = ''
 
-//     const blocoResultado = document.createElement('div')
-//     blocoResultado.classList.add('blocoResultado')
+function vitoria() {
+    let jogador
+    if (vezDoVermelho === true) {
+        jogador = 'Vermelho'
+    } else {
+        jogador = 'Preto'
+    }
+
+    body.innerHTML = ''
+
+    const blocoResultado = document.createElement('div')
+    blocoResultado.classList.add('blocoResultado')
     
-//     const texto = document.createElement('h2')
-//     texto.classList.add('textoResultado')
-//     texto.innerHTML = `O jogador ${jogador} venceu!`
-//     blocoResultado.appendChild(texto)
+    const texto = document.createElement('h2')
+    texto.classList.add('textoResultado')
+    texto.innerHTML = `O jogador ${jogador} venceu!`
+    blocoResultado.appendChild(texto)
 
-//     const botaoReiniciar = document.createElement('button')
-//     botaoReiniciar.classList.add('botaoReiniciar')
-//     botaoReiniciar.innerText = 'Reiniciar Jogo'
-//     body.appendChild(botaoReiniciar)
+    const botaoReiniciar = document.createElement('button')
+    botaoReiniciar.classList.add('botaoReiniciar')
+    botaoReiniciar.innerText = 'Reiniciar Jogo'
+    botaoReiniciar.addEventListener('click', reinicia)
+    body.appendChild(botaoReiniciar)
 
-//     body.appendChild(blocoResultado)
-// }
+    body.appendChild(blocoResultado)
+}
+
+function empate() {
+    body.innerHTML = ''
+
+    const resultEmpate = document.createElement('div')
+    resultEmpate.classList.add('resultEmpate')
+    
+    const texto = document.createElement('h2')
+    texto.classList.add('textoEmpate')
+    texto.innerHTML = `O jogo empatou. Reinicie a partida!`
+    resultEmpate.appendChild(texto)
+
+    const botaoReiniciar = document.createElement('button')
+    botaoReiniciar.classList.add('botaoReiniciar')
+    botaoReiniciar.innerText = 'Reiniciar Jogo'
+    botaoReiniciar.addEventListener('click', reinicia)
+    body.appendChild(botaoReiniciar)
+
+    body.appendChild(resultEmpate)
+}
 
 // function condicaoVitoriaVertical(colunaClicada) {
 //     if ( colunaClicada.childElementCount > 3 ) {
@@ -341,6 +370,8 @@ document.addEventListener('keydown', (event) => {
     } else {
         console.log('Essa tecla não está configurada')
     }
+
+    alternaJogador() //bugado por algum motivo
 })
 
 function addDiscoTeclado(cilindro, posicaoCilindro) {
@@ -349,20 +380,56 @@ function addDiscoTeclado(cilindro, posicaoCilindro) {
         console.log('você não pode adicionar aqui')
    
     } else {
-        novoDisco = document.createElement('div')
-        novoDisco.classList.add('disco')
-        alternaJogador(novoDisco)
-        cilindro.appendChild(novoDisco)
+        let novoDisco_T = document.createElement('div')
+        novoDisco_T.classList.add('disco')
+        jogadorAtual(novoDisco_T)
+        console.log(novoDisco_T)
+        console.log(vezDoVermelho)
+        cilindro.appendChild(novoDisco_T)
     
         //FOSTER
         if (vezDoVermelho === true){
-            
             tabelaArray[posicaoCilindro].push('Red')
         } else {
             tabelaArray[posicaoCilindro].push('Black')
         }
     
         condicaoVitoriaVertical(cilindro)
-
     }
+}
+
+function consultaDiscos() {
+    let cont = 0;
+    for (let i = 0; i <= 6;i++)
+    if (tabelaArray[i].length === 6){
+        cont++
+    } 
+    if (cont === 7){
+        return true
+        
+    }
+}
+
+function reinicia() {
+    body.innerText = ''
+
+
+    tabelaArray = [
+        [],
+        [], 
+        [],
+        [],
+        [],
+        [],
+        [],
+    ]
+
+    vezDoVermelho = true
+
+    colunas.forEach(coluna => {
+        coluna.innerText = ''
+    })
+
+    body.appendChild(tabela)
+    body.appendChild(blocoVezdoJogador)
 }
