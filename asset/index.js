@@ -22,6 +22,7 @@ function hiddenInstrutions() {
   instrutions.classList.add("hidden");
 }
 btnStart.addEventListener('click', iniciarJogo);
+setTimeout(iniciarJogo,15000)
 //FOSTER
 let tabelaArray = [
     [],
