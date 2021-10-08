@@ -1,3 +1,25 @@
+//RÔMULO
+const instrutions = document.querySelector(".instruções");
+const game = document.querySelector(".game-hidden");
+const botaoStart = document.getElementById("play");
+const btnStart = document.getElementById('btn-start');
+const iniciarJogo = () => {
+    btnStart.style.display = 'none';
+    // tabelaArray;
+    // addDisco();
+    // alternaJogador();
+    body.appendChild(blocoVezdoJogador)
+    hiddenInstrutions();
+    aparecertabuleiro()
+    }
+function aparecertabuleiro() {
+    game.style.display = 'block';
+}
+function hiddenInstrutions() {
+  instrutions.classList.remove("instruções");
+  instrutions.classList.add("hidden");
+}
+btnStart.addEventListener('click', iniciarJogo);
 //FOSTER
 let tabelaArray = [
     [],
@@ -20,7 +42,7 @@ for (let i = 0; i <= 6; i ++){
 let colunas = document.querySelectorAll('.coluna')
 
 colunas.forEach(coluna => {
-    coluna.addEventListener("click", addDisco)
+  coluna.addEventListener("click", addDisco)
 });
 
 // let col = 0;
@@ -222,20 +244,22 @@ const body = document.getElementsByTagName('BODY')[0]
 const blocoVezdoJogador = document.createElement('div')
 blocoVezdoJogador.id = 'blocoVezdoJogador'
 blocoVezdoJogador.classList.add('blocoVezdoJogadorVermelho')
-blocoVezdoJogador.innerText = 'Vez do jogador vermelho'
-body.appendChild(blocoVezdoJogador)
+blocoVezdoJogador.innerText = 'Vez do IMPÉRIO atacar!!!'
+
+//body.appendChild(blocoVezdoJogador)
 
 function jogadorAtual(bolinhaCriada) { // a cada jogada será chamada essa função que intercalará a vez do jogador
     if (vezDoVermelho === true) {
-        blocoVezdoJogador.classList.remove('blocoVezdoJogadorPreto')
-        blocoVezdoJogador.classList.add('blocoVezdoJogadorVermelho')
-        blocoVezdoJogador.innerText = 'Vez do jogador vermelho'
+        blocoVezdoJogador.classList.remove('blocoVezdoJogadorVermelho')
+        blocoVezdoJogador.classList.add('blocoVezdoJogadorPreto')
+        blocoVezdoJogador.innerText = 'Vez da Aliança Rebelde atacar!!!'
         bolinhaCriada.classList.add('bolinhaVermelha') // exemplo
 
     } else {
-        blocoVezdoJogador.classList.remove('blocoVezdoJogadorVermelho')
-        blocoVezdoJogador.classList.add('blocoVezdoJogadorPreto')
-        blocoVezdoJogador.innerText = 'Vez do jogador preto'
+        blocoVezdoJogador.classList.remove('blocoVezdoJogadorPreto')
+        blocoVezdoJogador.classList.add('blocoVezdoJogadorVermelho')
+        blocoVezdoJogador.innerText = 'Vez do IMPÉRIO atacar!!!'
+
         bolinhaCriada.classList.add('bolinhaPreta') // exemplo
     }
 
@@ -254,9 +278,9 @@ function alternaJogador() {
 function vitoria() {
     let jogador
     if (vezDoVermelho === true) {
-        jogador = 'Vermelho'
+        jogador = 'sombrio da força, o IMPÉRIO'
     } else {
-        jogador = 'Preto'
+        jogador = 'correto da força, a Aliança Rebelde'
     }
 
     body.innerHTML = ''
@@ -266,7 +290,7 @@ function vitoria() {
     
     const texto = document.createElement('h2')
     texto.classList.add('textoResultado')
-    texto.innerHTML = `O jogador ${jogador} venceu!`
+    texto.innerHTML = `Venha para o lado ${jogador} venceu!`
     blocoResultado.appendChild(texto)
 
     const botaoReiniciar = document.createElement('button')
