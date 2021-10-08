@@ -80,14 +80,14 @@ function addDisco(event) {
     // }
 
     // DANIEL - ADICIONADO PARAMETRO PARA A HORIZONTAL TAMBÉM
-    condicaoVitoriaVertical(linhaAtual)
-    diagonalSubindo(linhaAtual)
-    diagonalDescendo(linhaAtual)
-    horizontal(linhaAtual)
+    // condicaoVitoriaVertical(linhaAtual)
+    // diagonalSubindo(linhaAtual)
+    // diagonalDescendo(linhaAtual)
+    // horizontal(linhaAtual)
     if (horizontal(linhaAtual) === true || condicaoVitoriaVertical(linhaAtual) === true || diagonalSubindo(linhaAtual) === true || diagonalDescendo(linhaAtual) === true){
-        vitoria()
+        setTimeout( () => vitoria(), 600)
     } else if (consultaDiscos() === true){
-        empate()
+        setTimeout( () => empate(), 600)
     }
     
      alternaJogador()
@@ -373,8 +373,6 @@ function reinicia() {
         [],
         [],
     ]
-
-    vezDoVermelho = true
 
     colunas.forEach(coluna => {
         coluna.innerText = ''
