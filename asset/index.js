@@ -1,7 +1,7 @@
 //RÔMULO
-const divTop = document.getElementById('top')
 const instrutions = document.querySelector(".instruções");
 const game = document.querySelector(".game-hidden");
+const divTop = document.getElementById('top')
 const botaoStart = document.getElementById("play");
 const btnStart = document.getElementById('btn-start');
 const iniciarJogo = () => {
