@@ -1,6 +1,8 @@
 //RÔMULO
 const instrutions = document.querySelector(".instruções");
+const audio = document.getElementById('audio')
 const game = document.querySelector(".game-hidden");
+const divTop = document.getElementById('top')
 const botaoStart = document.getElementById("play");
 const btnStart = document.getElementById('btn-start');
 const iniciarJogo = () => {
@@ -42,8 +44,15 @@ for (let i = 0; i <= 6; i ++){
 let colunas = document.querySelectorAll('.coluna')
 
 colunas.forEach(coluna => {
-  coluna.addEventListener("click", addDisco)
+    coluna.addEventListener("click", addDisco)
 });
+document.addEventListener('keydown', (event) => {
+    for (let i = 1; i < 8; i++) {
+        if (event.key == `${i}`) {
+            addDisco(event)
+        }
+    }
+})
 
 // let col = 0;
 //ROMULO
@@ -53,8 +62,15 @@ let novoDisco;
 let vezDoVermelho = true // variavel que dirá se é a vez do jogador vermelho
 
 function addDisco(event) {
-    let linhaAtual = document.getElementById(event.target.id)
-    if(limitaQuantidade(event)===false){
+    let linhaAtual
+    if (event.type === 'click') {
+        linhaAtual = document.getElementById(event.target.id)
+    } else if (event.type === 'keydown') {
+        linhaAtual = document.querySelectorAll('.coluna')[event.key-1]
+    }
+
+
+    if(limitaQuantidade(linhaAtual)===false){
         return console.log("A coluna nao pode receber mais discos")
     }
     novoDisco = document.createElement('div')
@@ -65,10 +81,10 @@ function addDisco(event) {
     //FOSTER
     if (vezDoVermelho === true){
         jogador = "Vermelho"
-        tabelaArray[this.id].push('Red')
+        tabelaArray[linhaAtual.id].push('Red')
     } else {
         jogador = "Preto"
-        tabelaArray[this.id].push('Black')
+        tabelaArray[linhaAtual.id].push('Black')
     }
 
     // if (this.id == 0){
@@ -88,31 +104,30 @@ function addDisco(event) {
     // }
 
     //DANIEL - ADICIONADO PARAMETRO PARA A HORIZONTAL TAMBÉM
-    horizontal(event)
-    condicaoVitoriaVertical(event)
-    diagonalSubindo(event)
-    diagonalDescendo(event)
-    if (horizontal(event) === true || condicaoVitoriaVertical(event) === true || diagonalSubindo(event) === true || diagonalDescendo(event) === true){
-        vitoria()
+    // horizontal(event)
+    // condicaoVitoriaVertical(event)
+    // diagonalSubindo(event)
+    // diagonalDescendo(event)
+    if (horizontal(linhaAtual) === true || condicaoVitoriaVertical(linhaAtual) === true || diagonalSubindo(linhaAtual) === true || diagonalDescendo(linhaAtual) === true){
+        setTimeout( () => vitoria(), 600)
     } else if (consultaDiscos() === true){
-        empate()
+        setTimeout( () => empate(), 600)
     }
     
-    alternaJogador()
-    console.log(vezDoVermelho)
+     alternaJogador()
 }
 
 //DANIEL-alternativa de função para limitar quantidade:
-const limitaQuantidade = event => {
-    if(event.target.querySelectorAll('.disco').length>=6) {
+const limitaQuantidade = linha => {
+    if(linha.childElementCount>=6) {
         return false
     }
     return true
 }
 // FUNÇÃO DE VERIFICAÇÃO DE COMBINAÇÃO HORIZONTAL -- FOSTER
-function horizontal(event) {
+function horizontal(linha) {
     let posicao;
-    let col = Number(event.target.id)
+    let col = Number(linha.id)
     posicao = tabelaArray[col].length-1
        
     if (tabelaArray[0][posicao] !== undefined 
@@ -181,9 +196,9 @@ function horizontal(event) {
 //   };
 
 //DANIEL: Função alternativa para diagonal
-const diagonalSubindo = event => {
-    let col = Number(event.target.id)
-    let lin = tabelaArray[event.target.id].length-1
+const diagonalSubindo = linha => {
+    let col = Number(linha.id)
+    let lin = tabelaArray[linha.id].length-1
     let count = 1;
     for (let i = 1; i <= 3; i++){
         if(col+i>6||lin+i>5) {
@@ -208,9 +223,9 @@ const diagonalSubindo = event => {
     return (count===4)
 }
 
-const diagonalDescendo = event => {
-    let col = Number(event.target.id)
-    let lin = tabelaArray[event.target.id].length-1
+const diagonalDescendo = linha => {
+    let col = Number(linha.id)
+    let lin = tabelaArray[linha.id].length-1
     let count = 1;
     for (let i = 1; i <= 3; i++){
         if(col+i>6||lin-i<0) {
@@ -245,21 +260,12 @@ const blocoVezdoJogador = document.createElement('div')
 blocoVezdoJogador.id = 'blocoVezdoJogador'
 blocoVezdoJogador.classList.add('blocoVezdoJogadorVermelho')
 blocoVezdoJogador.innerText = 'Vez do IMPÉRIO atacar!!!'
-
-//body.appendChild(blocoVezdoJogador)
+// body.appendChild(blocoVezdoJogador)
 
 function jogadorAtual(bolinhaCriada) { // a cada jogada será chamada essa função que intercalará a vez do jogador
     if (vezDoVermelho === true) {
-        blocoVezdoJogador.classList.remove('blocoVezdoJogadorVermelho')
-        blocoVezdoJogador.classList.add('blocoVezdoJogadorPreto')
-        blocoVezdoJogador.innerText = 'Vez da Aliança Rebelde atacar!!!'
         bolinhaCriada.classList.add('bolinhaVermelha') // exemplo
-
     } else {
-        blocoVezdoJogador.classList.remove('blocoVezdoJogadorPreto')
-        blocoVezdoJogador.classList.add('blocoVezdoJogadorVermelho')
-        blocoVezdoJogador.innerText = 'Vez do IMPÉRIO atacar!!!'
-
         bolinhaCriada.classList.add('bolinhaPreta') // exemplo
     }
 
@@ -269,8 +275,14 @@ function jogadorAtual(bolinhaCriada) { // a cada jogada será chamada essa funç
 function alternaJogador() {
     if (vezDoVermelho === true) {
         vezDoVermelho = false
+        blocoVezdoJogador.classList.remove('blocoVezdoJogadorVermelho')
+        blocoVezdoJogador.classList.add('blocoVezdoJogadorPreto')
+        blocoVezdoJogador.innerText = 'Vez da Aliança Rebelde atacar!!!'
     } else {
         vezDoVermelho = true
+        blocoVezdoJogador.classList.remove('blocoVezdoJogadorPreto')
+        blocoVezdoJogador.classList.add('blocoVezdoJogadorVermelho')
+        blocoVezdoJogador.innerText = 'Vez do IMPÉRIO atacar!!!'
     }
 }
 
@@ -343,9 +355,9 @@ function empate() {
 // }
 
 // CORREÇÃO CONDIÇÃO VITÓRIA VERTICAL E REFATORAÇÃO - DANIEL
-function condicaoVitoriaVertical(event) {
-    const col = Number(event.target.id)
-    const lin = tabelaArray[event.target.id].length-1
+function condicaoVitoriaVertical(linha) {
+    const col = Number(linha.id)
+    const lin = tabelaArray[linha.id].length-1
     if (tabelaArray[col].length > 3){
         let contador = 1
         for (let index = 1; index <= 3; index++) {
@@ -361,44 +373,44 @@ function condicaoVitoriaVertical(event) {
 }
 
 
-//  EVENTO TECLA NUMÉRICA DE 1 A 7
-/*document.addEventListener('keydown', (event) => {
-    const keyName = event.key - 1
-    let cilindro = document.querySelectorAll('.coluna')[keyName]
+// //  EVENTO TECLA NUMÉRICA DE 1 A 7
+// document.addEventListener('keydown', (event) => {
+//     const keyName = event.key - 1
+//     let cilindro = document.querySelectorAll('.coluna')[keyName]
    
-    if (keyName >= 0 && keyName < 7) { // se precionar alguma tecla não confugurada evita erro no devTools
-        addDiscoTeclado(cilindro, keyName)
+//     if (keyName >= 0 && keyName < 7) { // se precionar alguma tecla não confugurada evita erro no devTools
+//         addDiscoTeclado(cilindro, keyName)
     
-    } else {
-        console.log('Essa tecla não está configurada')
-    }
+//     } else {
+//         console.log('Essa tecla não está configurada')
+//     }
 
-    alternaJogador() //bugado por algum motivo
-})
+//     alternaJogador() //bugado por algum motivo
+// })
 
-function addDiscoTeclado(cilindro, posicaoCilindro) {
+// function addDiscoTeclado(cilindro, posicaoCilindro) {
 
-    if (cilindro.childElementCount >= 6) { // limitador de bolinhas na coluna
-        console.log('você não pode adicionar aqui')
+//     if (cilindro.childElementCount >= 6) { // limitador de bolinhas na coluna
+//         console.log('você não pode adicionar aqui')
    
-    } else {
-        let novoDisco_T = document.createElement('div')
-        novoDisco_T.classList.add('disco')
-        jogadorAtual(novoDisco_T)
-        console.log(novoDisco_T)
-        console.log(vezDoVermelho)
-        cilindro.appendChild(novoDisco_T)
+//     } else {
+//         let novoDisco_T = document.createElement('div')
+//         novoDisco_T.classList.add('disco')
+//         jogadorAtual(novoDisco_T)
+//         console.log(novoDisco_T)
+//         console.log(vezDoVermelho)
+//         cilindro.appendChild(novoDisco_T)
     
-        //FOSTER
-        if (vezDoVermelho === true){
-            tabelaArray[posicaoCilindro].push('Red')
-        } else {
-            tabelaArray[posicaoCilindro].push('Black')
-        }
+//         //FOSTER
+//         if (vezDoVermelho === true){
+//             tabelaArray[posicaoCilindro].push('Red')
+//         } else {
+//             tabelaArray[posicaoCilindro].push('Black')
+//         }
     
-        condicaoVitoriaVertical(cilindro)
-    }
-}*/
+//         condicaoVitoriaVertical(cilindro)
+//     }
+// }
 
 function consultaDiscos() {
     let cont = 0;
@@ -413,9 +425,6 @@ function consultaDiscos() {
 }
 
 function reinicia() {
-    body.innerText = ''
-
-
     tabelaArray = [
         [],
         [], 
@@ -426,6 +435,8 @@ function reinicia() {
         [],
     ]
 
+    body.innerText = ''
+    body.appendChild(divTop)
     vezDoVermelho = true
 
     colunas.forEach(coluna => {
@@ -433,5 +444,6 @@ function reinicia() {
     })
 
     body.appendChild(tabela)
+    body.appendChild(audio)
     body.appendChild(blocoVezdoJogador)
 }
