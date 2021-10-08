@@ -362,7 +362,7 @@ function condicaoVitoriaVertical(event) {
 
 
 //  EVENTO TECLA NUMÉRICA DE 1 A 7
-document.addEventListener('keydown', (event) => {
+/*document.addEventListener('keydown', (event) => {
     const keyName = event.key - 1
     let cilindro = document.querySelectorAll('.coluna')[keyName]
    
@@ -398,7 +398,7 @@ function addDiscoTeclado(cilindro, posicaoCilindro) {
     
         condicaoVitoriaVertical(cilindro)
     }
-}
+}*/
 
 function consultaDiscos() {
     let cont = 0;
