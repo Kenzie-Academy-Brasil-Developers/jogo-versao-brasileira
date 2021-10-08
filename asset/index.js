@@ -244,20 +244,22 @@ const body = document.getElementsByTagName('BODY')[0]
 const blocoVezdoJogador = document.createElement('div')
 blocoVezdoJogador.id = 'blocoVezdoJogador'
 blocoVezdoJogador.classList.add('blocoVezdoJogadorVermelho')
-blocoVezdoJogador.innerText = 'Vez do jogador vermelho'
+blocoVezdoJogador.innerText = 'Vez do IMPÉRIO atacar!!!'
+
 //body.appendChild(blocoVezdoJogador)
 
 function jogadorAtual(bolinhaCriada) { // a cada jogada será chamada essa função que intercalará a vez do jogador
     if (vezDoVermelho === true) {
-        blocoVezdoJogador.classList.remove('blocoVezdoJogadorPreto')
-        blocoVezdoJogador.classList.add('blocoVezdoJogadorVermelho')
-        blocoVezdoJogador.innerText = 'Vez do jogador vermelho'
+        blocoVezdoJogador.classList.remove('blocoVezdoJogadorVermelho')
+        blocoVezdoJogador.classList.add('blocoVezdoJogadorPreto')
+        blocoVezdoJogador.innerText = 'Vez da Aliança Rebelde atacar!!!'
         bolinhaCriada.classList.add('bolinhaVermelha') // exemplo
 
     } else {
-        blocoVezdoJogador.classList.remove('blocoVezdoJogadorVermelho')
-        blocoVezdoJogador.classList.add('blocoVezdoJogadorPreto')
-        blocoVezdoJogador.innerText = 'Vez do jogador preto'
+        blocoVezdoJogador.classList.remove('blocoVezdoJogadorPreto')
+        blocoVezdoJogador.classList.add('blocoVezdoJogadorVermelho')
+        blocoVezdoJogador.innerText = 'Vez do IMPÉRIO atacar!!!'
+
         bolinhaCriada.classList.add('bolinhaPreta') // exemplo
     }
 
@@ -276,9 +278,9 @@ function alternaJogador() {
 function vitoria() {
     let jogador
     if (vezDoVermelho === true) {
-        jogador = 'Vermelho'
+        jogador = 'sombrio da força, o IMPÉRIO'
     } else {
-        jogador = 'Preto'
+        jogador = 'correto da força, a Aliança Rebelde'
     }
 
     body.innerHTML = ''
@@ -288,7 +290,7 @@ function vitoria() {
     
     const texto = document.createElement('h2')
     texto.classList.add('textoResultado')
-    texto.innerHTML = `O jogador ${jogador} venceu!`
+    texto.innerHTML = `Venha para o lado ${jogador} venceu!`
     blocoResultado.appendChild(texto)
 
     const botaoReiniciar = document.createElement('button')
