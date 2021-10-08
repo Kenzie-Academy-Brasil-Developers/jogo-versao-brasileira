@@ -438,7 +438,6 @@ function reinicia() {
 
     body.innerText = ''
     body.appendChild(divTop)
-    vezDoVermelho = true
 
     colunas.forEach(coluna => {
         coluna.innerText = ''
