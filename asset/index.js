@@ -291,9 +291,9 @@ function alternaJogador() {
 function vitoria() {
     let jogador
     if (vezDoVermelho === true) {
-        jogador = 'sombrio da força, o IMPÉRIO'
-    } else {
         jogador = 'correto da força, a Aliança Rebelde'
+    } else {
+        jogador = 'sombrio da força, o IMPÉRIO'
     }
 
     body.innerHTML = ''
