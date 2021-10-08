@@ -1,5 +1,6 @@
 //RÔMULO
 const instrutions = document.querySelector(".instruções");
+const audio = document.getElementById('audio')
 const game = document.querySelector(".game-hidden");
 const divTop = document.getElementById('top')
 const botaoStart = document.getElementById("play");
@@ -443,5 +444,6 @@ function reinicia() {
     })
 
     body.appendChild(tabela)
+    body.appendChild(audio)
     body.appendChild(blocoVezdoJogador)
 }
