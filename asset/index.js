@@ -1,3 +1,26 @@
+//RÔMULO
+const divTop = document.getElementById('top')
+const instrutions = document.querySelector(".instruções");
+const game = document.querySelector(".game-hidden");
+const botaoStart = document.getElementById("play");
+const btnStart = document.getElementById('btn-start');
+const iniciarJogo = () => {
+    btnStart.style.display = 'none';
+    // tabelaArray;
+    // addDisco();
+    // alternaJogador();
+    body.appendChild(blocoVezdoJogador)
+    hiddenInstrutions();
+    aparecertabuleiro()
+    }
+function aparecertabuleiro() {
+    game.style.display = 'block';
+}
+function hiddenInstrutions() {
+  instrutions.classList.remove("instruções");
+  instrutions.classList.add("hidden");
+}
+btnStart.addEventListener('click', iniciarJogo);
 //FOSTER
 let tabelaArray = [
     [],
@@ -79,11 +102,11 @@ function addDisco(event) {
     //   col = 6
     // }
 
-    // DANIEL - ADICIONADO PARAMETRO PARA A HORIZONTAL TAMBÉM
-    // condicaoVitoriaVertical(linhaAtual)
-    // diagonalSubindo(linhaAtual)
-    // diagonalDescendo(linhaAtual)
-    // horizontal(linhaAtual)
+    //DANIEL - ADICIONADO PARAMETRO PARA A HORIZONTAL TAMBÉM
+    // horizontal(event)
+    // condicaoVitoriaVertical(event)
+    // diagonalSubindo(event)
+    // diagonalDescendo(event)
     if (horizontal(linhaAtual) === true || condicaoVitoriaVertical(linhaAtual) === true || diagonalSubindo(linhaAtual) === true || diagonalDescendo(linhaAtual) === true){
         setTimeout( () => vitoria(), 600)
     } else if (consultaDiscos() === true){
@@ -235,8 +258,8 @@ const body = document.getElementsByTagName('BODY')[0]
 const blocoVezdoJogador = document.createElement('div')
 blocoVezdoJogador.id = 'blocoVezdoJogador'
 blocoVezdoJogador.classList.add('blocoVezdoJogadorVermelho')
-blocoVezdoJogador.innerText = 'Vez do jogador vermelho'
-body.appendChild(blocoVezdoJogador)
+blocoVezdoJogador.innerText = 'Vez do IMPÉRIO atacar!!!'
+// body.appendChild(blocoVezdoJogador)
 
 function jogadorAtual(bolinhaCriada) { // a cada jogada será chamada essa função que intercalará a vez do jogador
     if (vezDoVermelho === true) {
@@ -253,12 +276,12 @@ function alternaJogador() {
         vezDoVermelho = false
         blocoVezdoJogador.classList.remove('blocoVezdoJogadorVermelho')
         blocoVezdoJogador.classList.add('blocoVezdoJogadorPreto')
-        blocoVezdoJogador.innerText = 'Vez do jogador preto'
+        blocoVezdoJogador.innerText = 'Vez da Aliança Rebelde atacar!!!'
     } else {
         vezDoVermelho = true
         blocoVezdoJogador.classList.remove('blocoVezdoJogadorPreto')
         blocoVezdoJogador.classList.add('blocoVezdoJogadorVermelho')
-        blocoVezdoJogador.innerText = 'Vez do jogador vermelho'
+        blocoVezdoJogador.innerText = 'Vez do IMPÉRIO atacar!!!'
     }
 }
 
@@ -266,9 +289,9 @@ function alternaJogador() {
 function vitoria() {
     let jogador
     if (vezDoVermelho === true) {
-        jogador = 'Vermelho'
+        jogador = 'sombrio da força, o IMPÉRIO'
     } else {
-        jogador = 'Preto'
+        jogador = 'correto da força, a Aliança Rebelde'
     }
 
     body.innerHTML = ''
@@ -278,7 +301,7 @@ function vitoria() {
     
     const texto = document.createElement('h2')
     texto.classList.add('textoResultado')
-    texto.innerHTML = `O jogador ${jogador} venceu!`
+    texto.innerHTML = `Venha para o lado ${jogador} venceu!`
     blocoResultado.appendChild(texto)
 
     const botaoReiniciar = document.createElement('button')
@@ -348,6 +371,46 @@ function condicaoVitoriaVertical(linha) {
     return false
 }
 
+
+// //  EVENTO TECLA NUMÉRICA DE 1 A 7
+// document.addEventListener('keydown', (event) => {
+//     const keyName = event.key - 1
+//     let cilindro = document.querySelectorAll('.coluna')[keyName]
+   
+//     if (keyName >= 0 && keyName < 7) { // se precionar alguma tecla não confugurada evita erro no devTools
+//         addDiscoTeclado(cilindro, keyName)
+    
+//     } else {
+//         console.log('Essa tecla não está configurada')
+//     }
+
+//     alternaJogador() //bugado por algum motivo
+// })
+
+// function addDiscoTeclado(cilindro, posicaoCilindro) {
+
+//     if (cilindro.childElementCount >= 6) { // limitador de bolinhas na coluna
+//         console.log('você não pode adicionar aqui')
+   
+//     } else {
+//         let novoDisco_T = document.createElement('div')
+//         novoDisco_T.classList.add('disco')
+//         jogadorAtual(novoDisco_T)
+//         console.log(novoDisco_T)
+//         console.log(vezDoVermelho)
+//         cilindro.appendChild(novoDisco_T)
+    
+//         //FOSTER
+//         if (vezDoVermelho === true){
+//             tabelaArray[posicaoCilindro].push('Red')
+//         } else {
+//             tabelaArray[posicaoCilindro].push('Black')
+//         }
+    
+//         condicaoVitoriaVertical(cilindro)
+//     }
+// }
+
 function consultaDiscos() {
     let cont = 0;
     for (let i = 0; i <= 6;i++)
@@ -361,9 +424,6 @@ function consultaDiscos() {
 }
 
 function reinicia() {
-    body.innerText = ''
-
-
     tabelaArray = [
         [],
         [], 
@@ -373,6 +433,10 @@ function reinicia() {
         [],
         [],
     ]
+
+    body.innerText = ''
+    body.appendChild(divTop)
+    vezDoVermelho = true
 
     colunas.forEach(coluna => {
         coluna.innerText = ''
